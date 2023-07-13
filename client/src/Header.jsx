@@ -1,35 +1,65 @@
+import { Link } from "react-router-dom";
+import { UserContext } from "./UserContext";
+import { useContext, useState } from "react";
+
 export default function Header() {
+  const userInfo = useContext(UserContext);
   return (
     <div className="flex justify-between mx-40 pt-12">
-      <h1 className="font-extrabold text-transparent text-4xl bg-clip-text bg-gradient-to-r from-orange-400 to-orange-500">
+      <Link
+        to="/"
+        className="font-extrabold text-transparent text-4xl bg-clip-text bg-gradient-to-r from-orange-400 to-orange-500"
+      >
         pizzaHust
-      </h1>
+      </Link>
       <div className="flex gap-32 text-center items-center font-medium text-transparent text-xl">
-        <div>
-          <a
-            href="#root"
-            className="bg-clip-text bg-gradient-to-r from-orange-400 to-orange-500"
-          >
-            Home
-          </a>
-        </div>
-        <a
-          href="#menu"
-          className="bg-clip-text bg-gradient-to-r from-gray-400 to-gray-500"
+        <Link
+          to="/"
+          className="bg-clip-text bg-gradient-to-r from-gray-400 to-gray-500 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none"
+        >
+          Home
+        </Link>
+        <Link
+          to="/menu"
+          className="bg-clip-text bg-gradient-to-r from-gray-400 to-gray-500 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none"
         >
           Menu
-        </a>
-        <a
-          href="#about-us"
-          className="bg-clip-text bg-gradient-to-r from-gray-400 to-gray-500"
+        </Link>
+        {/* <Link
+          to="/#about-us"
+          className="bg-clip-text bg-gradient-to-r from-gray-400 to-gray-500 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none"
         >
           About us
-        </a>
+        </Link> */}
       </div>
       <div className="flex gap-6">
-        <button className="px-14 text-lg font-semibold rounded-full text-white bg-gradient-to-r from-orange-400 to-orange-500">
-          Log in
-        </button>
+        {!userInfo.user && (
+          <Link
+            to="/login"
+            className="px-14 text-lg py-2 font-semibold rounded-full text-white bg-gradient-to-r from-orange-400 to-orange-500"
+          >
+            Log in
+          </Link>
+        )}
+        {userInfo.user && (
+          <Link to="/account/profile" className="flex gap-2">
+            <h1 className="text-lg my-auto">{userInfo.user.firstName}</h1>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-10 h-10 p-2 rounded-full bg-gradient-to-r from-orange-400 to-orange-500 text-white"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+              />
+            </svg>
+          </Link>
+        )}
         <button>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +67,7 @@ export default function Header() {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-11 h-11 p-2 rounded-full bg-gradient-to-r from-orange-400 to-orange-500 text-white"
+            className="w-10 h-10 p-2 rounded-full bg-gradient-to-r from-orange-400 to-orange-500 text-white"
           >
             <path
               strokeLinecap="round"
