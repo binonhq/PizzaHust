@@ -7,7 +7,8 @@ const bcrypt = require("bcryptjs")
 const User = require("./models/User.js");
 const jwt = require("jsonwebtoken")
 const cookieParser = require("cookie-parser")
-
+const Stripe = require("stripe");
+const stripe = Stripe('sk_test_51Nf3XpAvfMy8ZKy3jmXaJqtE3Vw0mIYMzWLA4mEgHEIGgmnLA2FxY2yiifjRj19Ro1Hbm0AzWgUTZs446yRwmcV600S9bOjhXU')
 const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = 'asdjanduwnasidnow';
 
@@ -110,4 +111,30 @@ app.post('/pizza', (req, res) => {
    } else res.json(null)
 })
 
+//payment
+app.post('/payment', async (req, res) => {
+   try {
+   const session = await stripe.checkout.sessions.create({
+     line_items: [
+       {
+         price_data: {
+           currency: 'usd',
+           product_data: {
+             name: 'T-shirt',
+           },
+           unit_amount: 2000,
+         },
+         quantity: 1,
+       },
+     ],
+     mode: 'payment',
+     success_url: 'http://localhost:5173/payment/success',
+     cancel_url: 'http://localhost:5173/cart',
+   });
+   res.json({ url: session.url });
+  } catch (error) {
+    console.error("Error creating Stripe session:", error);
+    res.status(500).json({ error: "Error creating Stripe session" });
+  }
+ });
 module.exports = app;
