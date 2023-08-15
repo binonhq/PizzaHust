@@ -8,6 +8,7 @@ import Layout from "./Layout.jsx";
 import axios from "axios";
 import ProfilePage from "./pages/ProfilePage.jsx";
 import HistoryPage from "./pages/HistoryPage.jsx";
+import AddPizzaPage from "./pages/AddPizzaPage.jsx";
 import MenuPage from "./pages/MenuPage.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
 import CartPage from "./pages/CartPage.jsx";
@@ -25,6 +26,7 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/account/profile" element={<ProfilePage />} />
           <Route path="/account/history" element={<HistoryPage />} />
+          <Route path="/account/add-pizza" element={<AddPizzaPage />} />
           <Route path="/payment" element={<PaymentPage />} />
         </Route>
         <Route path="/admin" element={<AdminPage />} />
