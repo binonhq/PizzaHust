@@ -1,11 +1,10 @@
 import { CartContext } from "./CartContext";
 import { useContext, useState, useEffect } from "react";
-export default function Product({ product }) {
+export default function MenuProduct({ product }) {
   const { cart, setCart } = useContext(CartContext);
   const [size, setSize] = useState("Large");
   const [crust, setCrust] = useState("Regular");
   const [price, setPrice] = useState(20);
-
   function updatePrice() {
     if (size === "Small") {
       if (crust === "Thin") {
@@ -40,10 +39,14 @@ export default function Product({ product }) {
   }, [size, crust]);
 
   function addToCart(ev) {
-    // console.log(size);
-    // console.log(crust);
+    const product_doc = {
+      id: Object.keys(cart).length + 1,
+      product,
+      quantity: 1,
+      price: 100,
+    };
     ev.preventDefault();
-    setCart([...cart, product]);
+    setCart([...cart, product_doc]);
     alert("Item added !");
   }
 
@@ -68,7 +71,6 @@ export default function Product({ product }) {
               value={size}
               onChange={(ev) => {
                 setSize(ev.target.value);
-                updatePrice();
               }}
               className="py-2 px-3 w-full border-gray-200 rounded-md text-sm bg-stone-800"
             >
@@ -87,7 +89,6 @@ export default function Product({ product }) {
               value={crust}
               onChange={(ev) => {
                 setCrust(ev.target.value);
-                updatePrice();
               }}
               className="py-2 px-3 w-full border-gray-200 rounded-md text-sm bg-stone-800"
             >

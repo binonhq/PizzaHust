@@ -4,7 +4,10 @@
 
 :root {
    background: #190a00;
-   color: white
+   color: white;
+   -ms-overflow-style: none;
+   scrollbar-width: none;
+
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -17,4 +20,8 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
    -moz-appearance: textfield;
+}
+
+:root::-webkit-scrollbar {
+   display: none;
 }

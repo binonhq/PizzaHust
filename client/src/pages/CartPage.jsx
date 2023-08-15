@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../CartContext";
+import CartProduct from "../CartProduct";
 export default function CartPage() {
-  const { cart, setCart } = useContext(CartContext);
-  // console.log(cart);
-  function removeFromCart(ev, item) {
-    ev.preventDefault();
-    setCart((prevCart) => prevCart.filter((itemOnCart) => itemOnCart !== item));
-  }
+  const { cart } = useContext(CartContext);
+  let totalPrice = 0;
+  cart.map((item) => {
+    totalPrice += item.quantity * item.price;
+  });
   return (
     <div className="xl:w-1/2 w-full mx-auto xl:p-0 px-10 mt-8 mb-12">
       {cart.length === 0 && <h1>Cart empty</h1>}
@@ -19,49 +19,7 @@ export default function CartPage() {
           </div>
           <div className="justify-center flex-col">
             {cart.map((item) => (
-              <div
-                key={item}
-                className="mb-3 border-b-2 border-stone-700 p-3 flex justify-start"
-              >
-                <img className="w-32 h-34 cover-full" src={item.img} />
-                <div className="ml-4 w-full">
-                  <div className="flex justify-between gap-2">
-                    <div>
-                      <h2 className="text-3xl font-bold">{item.title}</h2>
-                      <p className="mt-1 text-sm">{item.desc}</p>
-                    </div>
-                    <div className="mt-0">
-                      <div className="flex items-center border-gray-100">
-                        <span className="cursor-pointer rounded-l-full bg-gray-100 text-black py-1 px-3.5 duration-100 hover:bg-stone-700 hover:text-white">
-                          {" "}
-                          -{" "}
-                        </span>
-                        <input
-                          className="h-8 w-10 px-auto border bg-white text-black text-center outline-none"
-                          type="number"
-                          defaultValue="1"
-                          min="1"
-                        />
-                        <span className="cursor-pointer rounded-r-full text-black bg-gray-100 py-1 px-3 duration-100 hover:bg-stone-700 hover:text-white">
-                          {" "}
-                          +{" "}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex justify-between mt-10">
-                    <button
-                      onClick={(ev) => {
-                        removeFromCart(ev, item);
-                      }}
-                      className="hover:underline cursor-pointer"
-                    >
-                      Remove
-                    </button>
-                    <p className="text-xl font-semibold">$ 259.000</p>
-                  </div>
-                </div>
-              </div>
+              <CartProduct item={item} key={item} />
             ))}
           </div>
           <div className="w-auto mt-3 mb-5 px-5 py-3 mx-10 rounded-xl bg-stone-800 ">
@@ -180,7 +138,7 @@ export default function CartPage() {
           </div>
           <div className="flex font-semibold mt-3 justify-between mx-5 text-2xl text-stone-400">
             <h1 className="">Total</h1>
-            <h1>$205.00</h1>
+            <h1>${totalPrice}</h1>
           </div>
           <Link to="/payment">
             <button className="mx-auto my-3 px-20 py-2 font-semibold rounded-full text-white bg-gradient-to-r from-orange-400 to-orange-500 flex gap-2 hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none">

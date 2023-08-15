@@ -1,5 +1,5 @@
 import MenuNav from "../MenuNav";
-import Product from "../Product";
+import MenuProduct from "../MenuProduct";
 import { useLocation } from "react-router-dom";
 export default function MenuPage() {
   const menuDoc = [
@@ -80,19 +80,17 @@ export default function MenuPage() {
       img: "https://mymenu.vn/assets/images/products/733/pizza-peperoni-mn-01.png",
     },
   ];
-
   const { pathname } = useLocation();
   let subpage = pathname.split("/")?.[2];
   if (subpage === undefined) {
     subpage = "all";
   }
-
   return (
     <div className="px-60 mb-20" id="menu">
       <MenuNav />
       <div className="mt-4 grid grid-cols-4 gap-4 pt-8">
         {menuDoc.length > 0 &&
-          menuDoc.map((item) => <Product product={item} key={item} />)}
+          menuDoc.map((item) => <MenuProduct product={item} key={item} />)}
       </div>
     </div>
   );

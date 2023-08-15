@@ -3,7 +3,7 @@ import pizza3 from "../images/pizza3.png";
 import pizza5 from "../images/pizza5.jpg";
 import pizza6 from "../images/pizza6.png";
 import pizza7 from "../images/pizza7.png";
-import Product from "../Product";
+import MenuProduct from "../MenuProduct";
 import { Link } from "react-router-dom";
 export default function IndexPage() {
   const menuDoc = [
@@ -91,7 +91,7 @@ export default function IndexPage() {
       </div>
       <div className="mt-4 grid grid-cols-4 gap-4 pt-8 mx-60">
         {menuDoc.length > 0 &&
-          menuDoc.map((item) => <Product product={item} key={item} />)}
+          menuDoc.map((item) => <MenuProduct product={item} key={item} />)}
       </div>
       <div className="flex justify-between ml-60 mt-20 -mb-16" id="about-us">
         <div className="w-1/2">
