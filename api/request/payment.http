@@ -1,0 +1,7 @@
+### Pay Order Online
+POST localhost:3000/payment/create-checkout-session
+Content-Type: application/json
+
+{
+  "orderId": "64da8393aa79f3bee616bf8c"
+}

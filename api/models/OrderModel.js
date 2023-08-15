@@ -23,6 +23,7 @@ const orderSchema = new mongoose.Schema({
         }]
     },
     status: { type: String, enum: ['pending', 'paid', 'cancel'], default: 'pending', required: true },
+    paymentMethod: { type: String, enum: ['cod', 'online'], required: true },
     price: { type: Number, min: 0, immutable: true }
 }, {
     timestamps: true,
