@@ -1,0 +1,31 @@
+### Login Request
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "username": "john_doe",
+  "password": "password"
+}
+
+### Signup Request
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+  "username": "john_doe",
+  "password": "password",
+  "name": "John Doe",
+  "email": "johndoe@example.com",
+  "phoneNumber": "123-456-7890",
+  "address": "123 Main Street, Anytown, CA 91234"
+}
+
+### Change Password Request
+PUT http://localhost:3000/auth/change-password
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGRhNDgyYzg4MGFjYTBiZGEzZTU2ZGEiLCJpYXQiOjE2OTIwMjY5MzQsImV4cCI6MTY5MjYzMTczNH0.gVjw4WoCpXMonzpjQLGfzYQJ4VjfXG6mdvRzhhSar2s
+
+{
+  "oldPassword": "password",
+  "newPassword": "newPassword"
+}
