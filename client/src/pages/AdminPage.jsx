@@ -15,7 +15,7 @@ export default function AdminPage() {
   }
 
   async function logout() {
-    await axios.post("/logout");
+    await axios.post("/auth/logout");
     setUser(null);
     setRedirect("/");
   }

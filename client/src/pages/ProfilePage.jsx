@@ -7,6 +7,7 @@ import AccountNav from "../AccountNav";
 export default function ProfilePage() {
   const { ready, user, setUser } = useContext(UserContext);
   const [redirect, setRedirect] = useState(null);
+  console.log(user);
   if (!ready) {
     return "Loading...";
   }
@@ -16,7 +17,7 @@ export default function ProfilePage() {
   }
 
   async function logout() {
-    await axios.post("/logout");
+    await axios.post("/auth/logout");
     setUser(null);
     setRedirect("/");
   }
@@ -38,15 +39,9 @@ export default function ProfilePage() {
         <table className="table-auto">
           <tbody>
             <tr>
-              <td className="font-semibold">First name: </td>
+              <td className="font-semibold">Name: </td>
               <td className="capitalize pl-10 md:pl-20 text-slate-500">
-                {user.firstName}
-              </td>
-            </tr>
-            <tr>
-              <td className="font-semibold ">Last name: </td>
-              <td className="capitalize pl-10 md:pl-20 text-slate-500">
-                {user.lastName}
+                {user.name}
               </td>
             </tr>
             <tr>

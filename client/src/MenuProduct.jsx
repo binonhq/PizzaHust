@@ -51,13 +51,15 @@ export default function MenuProduct({ product }) {
   }
 
   return (
-    <div className="bg-stone-800 bg-opacity-20 pt-8 px-5 pb-5 rounded-3xl flex flex-col">
-      <img className="w-1/2 block mx-auto" src={product.img} alt="" />
-      <h1 className="text-center font-semibold text-3xl pb-3 pt-4">
-        {product.title}
-      </h1>
-      <h1 className="text-sm text-center text-gray-400">{product.desc}</h1>
-      <form className="mx-4">
+    <div className="bg-stone-800 bg-opacity-20 pt-8 px-5 pb-5 rounded-3xl flex flex-col justify-between">
+      <div>
+        <img className="w-1/2 block mx-auto" src={product.img} alt="" />
+        <h1 className="text-center font-semibold text-3xl pb-3 pt-4">
+          {product.title}
+        </h1>
+        <h1 className="text-sm text-center text-gray-400">{product.desc}</h1>
+      </div>
+      <div className="mx-4">
         {product.type === "pizza" && (
           <div>
             <label
@@ -72,7 +74,7 @@ export default function MenuProduct({ product }) {
               onChange={(ev) => {
                 setSize(ev.target.value);
               }}
-              className="py-2 px-3 w-full border-gray-200 rounded-md text-sm bg-stone-800"
+              className="py-2 px-2 w-full border-gray-200 rounded-md text-sm bg-stone-800"
             >
               <option selected>Large</option>
               <option>Medium</option>
@@ -90,7 +92,7 @@ export default function MenuProduct({ product }) {
               onChange={(ev) => {
                 setCrust(ev.target.value);
               }}
-              className="py-2 px-3 w-full border-gray-200 rounded-md text-sm bg-stone-800"
+              className="py-2 px-2 w-full border-gray-200 rounded-md text-sm bg-stone-800"
             >
               <option selected>Regular</option>
               <option>Thin</option>
@@ -105,7 +107,7 @@ export default function MenuProduct({ product }) {
           <h1 className="">Add to cart</h1>
           <h1 className="">{price} $</h1>
         </button>
-      </form>
+      </div>
     </div>
   );
 }
