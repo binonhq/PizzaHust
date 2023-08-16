@@ -10,12 +10,6 @@ const userSchema = new mongoose.Schema({
     email: {type: String, required: true},
     phoneNumber: {type: String, required: true},
     address: {type: String, required: true},
-    cart: [{
-        pizza: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Pizza' },
-        pizzaSize: { type: String, enum: ['S', 'M', 'L'], required: true },
-        toppings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Topping' }],
-        quantity: { type: Number, required: true, immutable: true }
-    }],
     order: [{type: mongoose.Schema.Types.ObjectId, ref: 'Order'}],
 }, {
     timestamps: true
