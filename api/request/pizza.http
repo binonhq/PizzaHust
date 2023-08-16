@@ -1,0 +1,29 @@
+### Get All Pizzas
+GET localhost:3000/pizzas
+
+### Get Pizza By Id
+GET localhost:3000/pizzas/64da00292dbe59499577ecfb
+
+### Create Pizza By Id
+POST localhost:3000/pizzas
+Content-Type: application/json
+
+{
+  "name": "Pizza 1",
+  "description": "The best pizza in town",
+  "imageUrl": "https://cdn.tgdd.vn/Files/2021/12/07/1402760/tong-hop-cac-cach-lam-pizza-chi-can-o-nha-cung-co-the-thuong-thuc-202112070252570032.jpg",
+  "priceS": 200000,
+  "priceM": 250000,
+  "priceL": 300000
+}
+
+### Update Pizza By Id
+PUT localhost:3000/pizzas/64da00292dbe59499577ecfb
+Content-Type: application/json
+
+{
+  "name": "Pizza 0"
+}
+
+### Delete Pizza By Id
+DELETE localhost:3000/pizzas/64da00292dbe59499577ecfb

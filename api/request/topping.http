@@ -1,0 +1,27 @@
+### Get All Toppings
+GET localhost:3000/toppings
+
+### Get Topping By Id
+GET localhost:3000/toppings/64da2b6bf2842f293c2c9ad2
+
+### Create Topping By Id
+POST localhost:3000/toppings
+Content-Type: application/json
+
+{
+  "name": "Topping 1",
+  "description": "The best topping in town",
+  "imageUrl": "https://trivietphat.net/wp-content/uploads/2022/08/cach-lam-tran-chau-trang.webp",
+  "price": 10000
+}
+
+### Update Topping By Id
+PUT localhost:3000/toppings/64da2b6bf2842f293c2c9ad2
+Content-Type: application/json
+
+{
+  "name": "Topping 0"
+}
+
+### Delete Topping By Id
+DELETE localhost:3000/toppings/64da2b6bf2842f293c2c9ad2

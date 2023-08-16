@@ -56,7 +56,7 @@ export default function AccountNav() {
         <h1 className="hidden md:flex font-semibold">History</h1>
       </Link>
       {userInfo.user.isAdmin && (
-        <Link className={linkClasses("add-pizza")} to={"/account/add-pizza"}>
+        <Link className={linkClasses("history")} to={"/account/history"}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

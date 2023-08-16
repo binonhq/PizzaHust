@@ -1,0 +1,29 @@
+### Get All Users
+GET localhost:3000/users
+
+### Get User By Id
+GET localhost:3000/users/64d9f91add6ef473fa02bf7a
+
+### Create User By Id
+POST localhost:3000/users
+Content-Type: application/json
+
+{
+  "username": "john_doe",
+  "password": "password",
+  "name": "John Doe",
+  "email": "johndoe@example.com",
+  "phoneNumber": "123-456-7890",
+  "address": "123 Main Street, Anytown, CA 91234"
+}
+
+### Update User By Id
+PUT localhost:3000/users/64d9f91add6ef473fa02bf7a
+Content-Type: application/json
+
+{
+  "name": "John Doe"
+}
+
+### Delete User By Id
+DELETE localhost:3000/users/64d9f91add6ef473fa02bf7a

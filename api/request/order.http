@@ -1,0 +1,32 @@
+### Get All Orders
+GET localhost:3000/orders
+
+### Get Order By Id
+GET localhost:3000/orders/64da593396c4473be8a37af4
+
+### Create Order By Id
+POST localhost:3000/orders
+Content-Type: application/json
+
+{
+  "user": "64da482c880aca0bda3e56da",
+  "items": [
+    {
+      "pizza": "64da825b200f0e7f76b4bf28",
+      "pizzaSize": "L",
+      "topping": [],
+      "quantity": 1
+    }
+  ]
+}
+
+### Update Order By Id
+PUT localhost:3000/orders/64da7f43be4aa006f347f9dd
+Content-Type: application/json
+
+{
+  "status": "paid"
+}
+
+### Delete Order By Id
+DELETE localhost:3000/orders/64da595896c4473be8a37af7
