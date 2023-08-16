@@ -12,25 +12,29 @@ import MenuPage from "./pages/MenuPage.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
 import CartPage from "./pages/CartPage.jsx";
 import PaymentPage from "./pages/PaymentPage.jsx";
+import { CartContextProvider } from "./CartContext.jsx";
 axios.defaults.baseURL = "http://localhost:3001/";
 axios.defaults.withCredentials = true;
 
 function App() {
   return (
     <UserContextProvider>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<IndexPage />} />
-          <Route path="/menu" element={<MenuPage />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/account/profile" element={<ProfilePage />} />
-          <Route path="/account/history" element={<HistoryPage />} />
-          <Route path="/payment" element={<PaymentPage />} />
-        </Route>
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-      </Routes>
+      <CartContextProvider>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<IndexPage />} />
+            <Route path="/menu" element={<MenuPage />} />
+            <Route path="/menu/:query" element={<MenuPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/account/profile" element={<ProfilePage />} />
+            <Route path="/account/history" element={<HistoryPage />} />
+            <Route path="/payment" element={<PaymentPage />} />
+          </Route>
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
+      </CartContextProvider>
     </UserContextProvider>
   );
 }

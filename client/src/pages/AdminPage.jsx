@@ -1,11 +1,19 @@
 import { useContext, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import { BrowserRouter, Router, Route, Routes } from "react-router-dom";
 import axios from "axios";
+
 import { UserContext } from "../UserContext";
+import AdminHeader from "../AdminHeader";
+import AdminSidebar from "../AdminSidebar";
+import AdminContent from "../AdminContent";
+import AdminContentUser from "../AdminContentUser";
+import AdminContentProduct from "../AdminContentProduct";
 
 export default function AdminPage() {
   const { ready, user, setUser } = useContext(UserContext);
   const [redirect, setRedirect] = useState(null);
+  console.log("xinchao", user);
   if (!ready) {
     return "Loading...";
   }
@@ -15,7 +23,7 @@ export default function AdminPage() {
   }
 
   async function logout() {
-    await axios.post("/logout");
+    await axios.post("/auth/logout");
     setUser(null);
     setRedirect("/");
   }
@@ -24,29 +32,34 @@ export default function AdminPage() {
     return <Navigate to={redirect} />;
   }
   return (
-    <div>
-      <div className="flex place-content-center mt-52">
-        <button
-          className="pr-5 pl-4 py-2 font-semibold rounded-full text-white bg-gradient-to-r from-orange-400 to-orange-500 flex gap-2 hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none"
-          onClick={logout}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
-            />
-          </svg>
-          <h1 className="font-semibold ">Log out</h1>
-        </button>
-      </div>
-    </div>
+
+    <>
+      <title>Vietpro Mobile Shop - Administrator</title>
+      <link href="css/bootstrap.min.css" rel="stylesheet" />
+      <link href="css/datepicker3.css" rel="stylesheet" />
+      <link href="css/bootstrap-table.css" rel="stylesheet" />
+      <link href="css/styles.css" rel="stylesheet" />
+      {/*Icons*/}
+      {/*[if lt IE 9]>
+
+
+<![endif]*/}
+      <AdminHeader />
+      <div id="sidebar-collapse" className="col-sm-3 col-lg-2 sidebar">
+        <AdminSidebar />
+      </div>{/*/.sidebar*/}
+
+      <AdminContentUser />
+
+
+    </>
+
   );
 }
+
+
+{/* <Routes>
+<Route path="/admin-home" element={<AdminContent/>} />
+<Route path="/user" element={<AdminContentUser/>} />
+<Route path="/product" element={<AdminContent/>} />
+</Routes> */}

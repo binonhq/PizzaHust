@@ -10,4 +10,9 @@ router.post('/signup', AuthController.isReadyForSigningUp, UserController.create
 
 router.put('/change-password', AuthController.authenticateToken, AuthController.changePassword);
 
+router.post('/logout', AuthController.logout);
+
+router.get('/now-profile', AuthController.nowProfile);
+
+
 module.exports = router;

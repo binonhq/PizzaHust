@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thêm sản phẩm</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+    <div class="max-h-screen flex flex-col">
+
+        <!-- Phần trên -->
+        <div class="bg-gray-900 p-2">
+            <div class="container mx-auto flex items-center justify-between">
+                <a href="#" class="text-white text-lg font-semibold">PizzaHust<span class="text-blue-500">Shop</span></a>
+                <ul class="flex space-x-4 text-white">
+                    <li class="relative group" id="admin-link">
+                        <a href="#" class="hover:text-blue-500">Admin <svg
+                                class="w-4 h-4 inline-block ml-1 fill-current text-white group-hover:text-blue-500"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path
+                                    d="M12 0a12 12 0 1012 12A12 12 0 0012 0zm0 22a10 10 0 1110-10 10 10 0 01-10 10z" />
+                                <path
+                                    d="M15 7H9a1 1 0 100 2h6a1 1 0 100-2zm0 4H9a1 1 0 100 2h6a1 1 0 100-2zm0 4H9a1 1 0 100 2h6a1 1 0 100-2z" />
+                            </svg></a>
+                        <ul class="absolute hidden group-hover:block bg-white text-gray-800 p-2 rounded shadow mt-2 dropdown-menu">
+                            <li><a href="#" class="block px-2 py-1">Hồ sơ</a></li>
+                            <li><a href="#" class="block px-2 py-1">Đăng xuất</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Phần dưới -->
+        <div class="flex h-screen">
+
+            <!-- Thanh menubar dọc -->
+            <nav class="bg-gray-900 p-2 w-1/5">
+                <ul class="text-white">
+                    <li class="p-2 hover:bg-gray-800"><a href="#">Dashboard</a></li>
+                    <li class="p-2 hover:bg-gray-800"><a href="#">Quản lý thành viên</a></li>
+                    <li class="p-2 hover:bg-gray-800"><a href="#">Quản lý danh mục</a></li>
+                    <li class="p-2 hover:bg-gray-800"><a href="#">Quản lý sản phẩm</a></li>
+                    <li class="p-2 hover:bg-gray-800"><a href="#">Quản lý bình luận</a></li>
+                    <li class="p-2 hover:bg-gray-800"><a href="#">Quản lý quảng cáo</a></li>
+                    <li class="p-2 hover:bg-gray-800"><a href="#">Cấu hình</a></li>
+                </ul>
+            </nav>
+
+            <!-- Phần nội dung bên phải -->
+
+
+        </div>
+
+    </div>
+</body>
+
+</html>
+
+
+import { useContext, useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import axios from "axios";
+import { UserContext } from "../UserContext";
+import AdminHeader from "../AdminHeader";
+import AdminSidebar from "../AdminSidebar";
+import AdminContent from "../AdminContent";
+
+export default function AdminPage() {
+  const { ready, user, setUser } = useContext(UserContext);
+  const [redirect, setRedirect] = useState(null);
+  if (!ready) {
+    return "Loading...";
+  }
+
+  if (ready && !user) {
+    return <Navigate to={"/login"} />;
+  }
+
+  async function logout() {
+    await axios.post("/auth/logout");
+    setUser(null);
+    setRedirect("/");
+  }
+
+  if (redirect) {
+    return <Navigate to={redirect} />;
+  }
+  return (
+    <div>
+      <title>PizzaHust - Administrator</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet" />
+      <div className="max-h-screen flex flex-col">
+        {/* Phần trên */}
+        <AdminHeader/>
+        {/* Phần dưới */}
+        <div className="flex h-screen">
+          {/* Thanh menubar dọc */}
+          <AdminSidebar/>
+          {/* Phần nội dung bên phải */}
+          <AdminContent/>
+        </div>
+      </div>
+    </div>
+
+  );
+}

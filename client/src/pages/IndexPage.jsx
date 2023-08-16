@@ -1,17 +1,60 @@
 import pizza2 from "../images/pizza2.png";
 import pizza3 from "../images/pizza3.png";
-import pizza4 from "../images/pizza4.png";
 import pizza5 from "../images/pizza5.jpg";
 import pizza6 from "../images/pizza6.png";
 import pizza7 from "../images/pizza7.png";
+import MenuProduct from "../MenuProduct";
 import { Link } from "react-router-dom";
 export default function IndexPage() {
+  const menuDoc = [
+    {
+      type: "pizza",
+      title: "Italian",
+      desc: "Filling: onion, potato, tomato, mushrooms, cheese, olives, meat...",
+      price_s: 10,
+      price_m: 15,
+      price_l: 20,
+      topping_1: 3,
+      topping_2: 5,
+      img: "https://mymenu.vn/assets/images/products/733/pizza-peperoni-mn-01.png",
+    },
+    {
+      type: "pizza",
+      title: "Italian",
+      desc: "Filling: onion, potato, tomato, mushrooms, cheese, olives, meat...",
+      price_s: 10,
+      price_m: 15,
+      price_l: 20,
+      topping_1: 3,
+      topping_2: 5,
+      img: "https://mymenu.vn/assets/images/products/733/pizza-peperoni-mn-01.png",
+    },
+    {
+      type: "pizza",
+      title: "Italian",
+      desc: "Filling: onion, potato, tomato, mushrooms, cheese, olives, meat...",
+      price_s: 10,
+      price_m: 15,
+      price_l: 20,
+      topping_1: 3,
+      topping_2: 5,
+      img: "https://mymenu.vn/assets/images/products/733/pizza-peperoni-mn-01.png",
+    },
+    {
+      type: "pizza",
+      title: "Italian",
+      desc: "Filling: onion, potato, tomato, mushrooms, cheese, olives, meat...",
+      price_s: 10,
+      price_m: 15,
+      price_l: 20,
+      topping_1: 3,
+      topping_2: 5,
+      img: "https://mymenu.vn/assets/images/products/733/pizza-peperoni-mn-01.png",
+    },
+  ];
   return (
-    <div className="min-h-screen">
-      <div
-        className="flex justify-between mt-12 pl-60 pr-10 align-middle"
-        id="home"
-      >
+    <div className="">
+      <div className="flex justify-between mt-12 pl-60 pr-10 " id="home">
         <div>
           <h1 className="mt-32 lg:text-7xl font-extrabold">The Fastest</h1>
           <div className="flex gap-3 mt-4 items-center text-7xl font-extrabold">
@@ -19,15 +62,14 @@ export default function IndexPage() {
             <img className="h-20 mt-3" src={pizza3} alt="" />
             <h1>Delivery</h1>
           </div>
-          <h1 className="text-xl text-gray-400 w-3/4 my-4">
+          <h1 className="text-xl text-gray-400 w-3/4 my-5">
             We will deliver juicy pizza for your family in 30 minutes, if the
             courier is late - pizza is free!
           </h1>
-          <Link
-            to="/menu"
-            className="px-14 py-2 mt-5 text-xl font-semibold rounded-full text-white bg-gradient-to-r from-orange-400 to-orange-500"
-          >
-            Order now!
+          <Link to="/menu">
+            <button className="px-14 py-2 text-xl font-semibold rounded-full text-white bg-gradient-to-r from-orange-400 to-orange-500 hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none">
+              Order now!
+            </button>
           </Link>
         </div>
         <div>
@@ -47,169 +89,9 @@ export default function IndexPage() {
           MOST POPULAR PIZZA
         </h1>
       </div>
-      <div className="mx-60">
-        <div className="mt-4 grid grid-cols-4 gap-4 pt-8">
-          <div className="bg-stone-800 bg-opacity-20 pt-8 px-5 pb-3 rounded-3xl">
-            <img className="w-1/2 block mx-auto" src={pizza4} alt="" />
-            <h1 className="text-center font-semibold text-3xl py-5">Italian</h1>
-            <h1 className="text-sm text-center text-gray-400">
-              Filling: onion, potato, tomato, mushrooms, cheese, olives, meat...
-            </h1>
-            <form className="mx-4 mt-3">
-              <div className="flex justify-between py-3">
-                <div className="border-2 rounded-full p-3">
-                  <input type="radio" id="sizeS" name="pizza_size" value="S" />
-                  <label htmlFor="sizeS" className="">
-                    S
-                  </label>
-                </div>
-                <div className="border-2 rounded-full p-3">
-                  <input type="radio" id="sizeM" name="pizza_size" value="M" />
-                  <label htmlFor="sizeM" className="">
-                    M
-                  </label>
-                </div>
-                <div className="border-2 rounded-full p-3">
-                  <input type="radio" id="sizeL" name="pizza_size" value="L" />
-                  <label htmlFor="sizeL" className="">
-                    L
-                  </label>
-                </div>
-              </div>
-              <div className="flex justify-between">
-                <h1 className="text-3xl font-semibold">8,5 $</h1>
-                <div className="flex text-2xl gap-3">
-                  <h1>-</h1>
-                  <h1>1</h1>
-                  <h1>+</h1>
-                </div>
-              </div>
-              <button className="mt-4 block mx-auto w-full py-2 font-semibold rounded-full text-white bg-gradient-to-r from-orange-400 to-orange-500">
-                Add to cart
-              </button>
-            </form>
-          </div>
-          <div className="bg-stone-800 bg-opacity-20 pt-8 px-5 pb-3 rounded-3xl">
-            <img className="w-1/2 block mx-auto" src={pizza4} alt="" />
-            <h1 className="text-center font-semibold text-3xl py-5">Italian</h1>
-            <h1 className="text-sm text-center text-gray-400">
-              Filling: onion, potato, tomato, mushrooms, cheese, olives, meat...
-            </h1>
-            <form className="mx-4 mt-3">
-              <div className="flex justify-between py-3">
-                <div className="border-2 rounded-full p-3">
-                  <input type="radio" id="sizeS" name="pizza_size" value="S" />
-                  <label htmlFor="sizeS" className="">
-                    S
-                  </label>
-                </div>
-                <div className="border-2 rounded-full p-3">
-                  <input type="radio" id="sizeM" name="pizza_size" value="M" />
-                  <label htmlFor="sizeM" className="">
-                    M
-                  </label>
-                </div>
-                <div className="border-2 rounded-full p-3">
-                  <input type="radio" id="sizeL" name="pizza_size" value="L" />
-                  <label htmlFor="sizeL" className="">
-                    L
-                  </label>
-                </div>
-              </div>
-              <div className="flex justify-between">
-                <h1 className="text-3xl font-semibold">8,5 $</h1>
-                <div className="flex text-2xl gap-3">
-                  <h1>-</h1>
-                  <h1>1</h1>
-                  <h1>+</h1>
-                </div>
-              </div>
-              <button className="mt-4 block mx-auto w-full py-2 font-semibold rounded-full text-white bg-gradient-to-r from-orange-400 to-orange-500">
-                Add to cart
-              </button>
-            </form>
-          </div>
-          <div className="bg-stone-800 bg-opacity-20 pt-8 px-5 pb-3 rounded-3xl">
-            <img className="w-1/2 block mx-auto" src={pizza4} alt="" />
-            <h1 className="text-center font-semibold text-3xl py-5">Italian</h1>
-            <h1 className="text-sm text-center text-gray-400">
-              Filling: onion, potato, tomato, mushrooms, cheese, olives, meat...
-            </h1>
-            <form className="mx-4 mt-3">
-              <div className="flex justify-between py-3">
-                <div className="border-2 rounded-full p-3">
-                  <input type="radio" id="sizeS" name="pizza_size" value="S" />
-                  <label htmlFor="sizeS" className="">
-                    S
-                  </label>
-                </div>
-                <div className="border-2 rounded-full p-3">
-                  <input type="radio" id="sizeM" name="pizza_size" value="M" />
-                  <label htmlFor="sizeM" className="">
-                    M
-                  </label>
-                </div>
-                <div className="border-2 rounded-full p-3">
-                  <input type="radio" id="sizeL" name="pizza_size" value="L" />
-                  <label htmlFor="sizeL" className="">
-                    L
-                  </label>
-                </div>
-              </div>
-              <div className="flex justify-between">
-                <h1 className="text-3xl font-semibold">8,5 $</h1>
-                <div className="flex text-2xl gap-3">
-                  <h1>-</h1>
-                  <h1>1</h1>
-                  <h1>+</h1>
-                </div>
-              </div>
-              <button className="mt-4 block mx-auto w-full py-2 font-semibold rounded-full text-white bg-gradient-to-r from-orange-400 to-orange-500">
-                Add to cart
-              </button>
-            </form>
-          </div>
-          <div className="bg-stone-800 bg-opacity-20 pt-8 px-5 pb-3 rounded-3xl">
-            <img className="w-1/2 block mx-auto" src={pizza4} alt="" />
-            <h1 className="text-center font-semibold text-3xl py-5">Italian</h1>
-            <h1 className="text-sm text-center text-gray-400">
-              Filling: onion, potato, tomato, mushrooms, cheese, olives, meat...
-            </h1>
-            <form className="mx-4 mt-3">
-              <div className="flex justify-between py-3">
-                <div className="border-2 rounded-full p-3">
-                  <input type="radio" id="sizeS" name="pizza_size" value="S" />
-                  <label htmlFor="sizeS" className="">
-                    S
-                  </label>
-                </div>
-                <div className="border-2 rounded-full p-3">
-                  <input type="radio" id="sizeM" name="pizza_size" value="M" />
-                  <label htmlFor="sizeM" className="">
-                    M
-                  </label>
-                </div>
-                <div className="border-2 rounded-full p-3">
-                  <input type="radio" id="sizeL" name="pizza_size" value="L" />
-                  <label htmlFor="sizeL" className="">
-                    L
-                  </label>
-                </div>
-              </div>
-              <div className="flex justify-between">
-                <h1 className="text-3xl font-semibold">8,5 $</h1>
-                <div className="flex text-2xl gap-3">
-                  <h1>-</h1>
-                  <h1>1</h1>
-                  <h1>+</h1>
-                </div>
-              </div>
-              <button className="mt-4 block mx-auto w-full py-2 font-semibold rounded-full text-white bg-gradient-to-r from-orange-400 to-orange-500">
-                Add to cart
-              </button>
-            </form>
-          </div>
-        </div>
+      <div className="mt-4 grid grid-cols-4 gap-4 pt-8 mx-60">
+        {menuDoc.length > 0 &&
+          menuDoc.map((item) => <MenuProduct product={item} key={item} />)}
       </div>
       <div className="flex justify-between ml-60 mt-20 -mb-16" id="about-us">
         <div className="w-1/2">

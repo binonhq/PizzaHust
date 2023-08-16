@@ -4,7 +4,7 @@ import axios from "axios";
 import { UserContext } from "../UserContext";
 import Footer from "../Footer";
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState("");
   const { setUser } = useContext(UserContext);
@@ -12,8 +12,8 @@ export default function LoginPage() {
   async function handleLoginSubmit(ev) {
     ev.preventDefault();
     try {
-      const { data } = await axios.post("/login", {
-        email,
+      const { data } = await axios.post("/auth/login", {
+        username,
         password,
       });
       alert("Login successful.");
@@ -51,13 +51,13 @@ export default function LoginPage() {
         </h1>
         <form className="mt-10" onSubmit={handleLoginSubmit}>
           <div className="pt-2 pb-3 px-5 rounded-2xl bg-stone-800 mb-4">
-            <h1 className="text-stone-500 text-sm">Email</h1>
+            <h1 className="text-stone-500 text-sm">Username</h1>
             <input
-              value={email}
-              onChange={(ev) => setEmail(ev.target.value)}
+              value={username}
+              onChange={(ev) => setUsername(ev.target.value)}
               className="bg-stone-800 w-full outline-none"
               type="text"
-              placeholder="your@email.com"
+              placeholder="username"
             />
           </div>
           <div className="pt-2 pb-3 px-5 rounded-2xl bg-stone-800">
@@ -67,7 +67,7 @@ export default function LoginPage() {
               onChange={(ev) => setPassword(ev.target.value)}
               className="bg-stone-800 w-full outline-none"
               type="password"
-              placeholder="•••••••••••••••"
+              placeholder="•••••••"
             />
           </div>
           <button

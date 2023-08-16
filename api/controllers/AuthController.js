@@ -4,14 +4,17 @@ require('dotenv').config();
 
 const login = async (req, res) => {
     const { username } = req.body;
-
     const user = await UserModel.findOne({ username: username });
     if (!user || !user.validatePassword(req.body.password)) {
         return res.status(400).send({ message: "Fail to log in" });
     }
-
-    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '7d' });
-    res.status(200).json({ token: token });
+    const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '7d' }, (err, token) => {
+        if (err) {
+            throw err;
+        }
+        res.cookie('token', token).json(user);
+        res.status(200).json({ token: token, isAdmin: user.isAdmin });
+    });
 }
 const isReadyForSigningUp = async (req, res, next) => {
     const { username } = req.body;
@@ -65,9 +68,27 @@ const authenticateToken = async (req, res, next) => {
     }
 };
 
+const logout = async (req, res) => {
+    res.cookie('token', '').json(true);
+}
+
+const nowProfile = async (req, res) => {
+    const { token } = req.cookies;
+    if (token) {
+        jwt.verify(token, process.env.TOKEN_SECRET, {}, (err, user) => {
+            if (err) {
+                throw err;
+            }
+            res.json(user)
+        })
+    } else res.json(null)
+}
+
 module.exports = {
     login,
     isReadyForSigningUp,
     changePassword,
-    authenticateToken
+    authenticateToken,
+    logout,
+    nowProfile,
 };
