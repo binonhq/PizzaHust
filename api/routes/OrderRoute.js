@@ -6,9 +6,9 @@ const router = express.Router();
 
 router.get('/', OrderController.getAllOrders);
 
-router.get('/:id', OrderController.getOrderById);
+router.get('/:id', AuthController.authenticateToken, OrderController.getOrderById);
 
-router.post('/', OrderController.createOrder);
+router.post('/', AuthController.authenticateToken, OrderController.createOrder);
 
 router.put("/:id", OrderController.updateOrderById);
 
