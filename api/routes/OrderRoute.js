@@ -1,6 +1,6 @@
 const express = require('express');
 const OrderController = require('../controllers/OrderController');
-const isAuth = require('../middlewares/isAuth');
+const AuthController = require("../controllers/AuthController");
 
 const router = express.Router();
 
@@ -12,6 +12,6 @@ router.post('/', OrderController.createOrder);
 
 router.put("/:id", OrderController.updateOrderById);
 
-router.delete("/:id", OrderController.deleteOrderById);
+router.delete("/:id", AuthController.authenticateAdminToken, OrderController.deleteOrderById);
 
 module.exports = router;
