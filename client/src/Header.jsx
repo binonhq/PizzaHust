@@ -55,7 +55,7 @@ export default function Header() {
             className="flex gap-3 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none"
           >
             <h1 className="text-lg font-semibold my-auto capitalize">
-              {userInfo.user.firstName}
+              {userInfo.user.name}
             </h1>
             <svg
               xmlns="http://www.w3.org/2000/svg"
