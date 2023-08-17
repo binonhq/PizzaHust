@@ -1,6 +1,6 @@
 const express = require('express');
 const PizzaController = require('../controllers/PizzaController');
-const isAuth = require('../middlewares/isAuth');
+const AuthController = require('../controllers/AuthController');
 
 const router = express.Router();
 
@@ -8,10 +8,10 @@ router.get('/', PizzaController.getAllPizzas);
 
 router.get('/:id', PizzaController.getPizzaById);
 
-router.post('/', PizzaController.createPizza);
+router.post('/', AuthController.authenticateAdminToken, PizzaController.createPizza);
 
-router.put("/:id", PizzaController.updatePizzaById);
+router.put("/:id", AuthController.authenticateAdminToken, PizzaController.updatePizzaById);
 
-router.delete("/:id", PizzaController.deletePizzaById);
+router.delete("/:id", AuthController.authenticateAdminToken, PizzaController.deletePizzaById);
 
 module.exports = router;

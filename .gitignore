@@ -8,3 +8,5 @@ api/.env
 .local/
 
 node_modules/
+
+swagger-output.json

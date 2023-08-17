@@ -1,6 +1,6 @@
 const express = require('express');
 const ToppingController = require('../controllers/ToppingController');
-const isAuth = require('../middlewares/isAuth');
+const AuthController = require('../controllers/AuthController');
 
 const router = express.Router();
 
@@ -8,10 +8,10 @@ router.get('/', ToppingController.getAllToppings);
 
 router.get('/:id', ToppingController.getToppingById);
 
-router.post('/', ToppingController.createTopping);
+router.post('/', AuthController.authenticateAdminToken, ToppingController.createTopping);
 
-router.put("/:id", ToppingController.updateToppingById);
+router.put("/:id", AuthController.authenticateAdminToken, ToppingController.updateToppingById);
 
-router.delete("/:id", ToppingController.deleteToppingById);
+router.delete("/:id", AuthController.authenticateAdminToken, ToppingController.deleteToppingById);
 
 module.exports = router;

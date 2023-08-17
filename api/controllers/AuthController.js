@@ -83,6 +83,32 @@ const nowProfile = async (req, res) => {
         })
     } else res.json(null)
 }
+const authenticateAdminToken = async (req, res, next) => {
+    const token = req.header('Authorization')?.split(' ')[1];
+
+    if (!token) {
+        return res.status(401).send({ message: "Access denied. Token missing." });
+    }
+
+    try {
+        const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+        const user = await UserModel.findById(decoded._id);
+
+        if (!user) {
+            return res.status(401).send({ message: "Access denied. User not found." });
+        }
+
+        if (!user.isAdmin) {
+            return res.status(401).send({ message: "Access denied. Admin not authenticated." });
+        }
+
+        req.user = user;
+        next();
+    } catch (error) {
+        res.status(401).send({ message: "Access denied. Invalid token." });
+    }
+};
+// >>>>>>> origin/api
 
 module.exports = {
     login,
@@ -91,4 +117,5 @@ module.exports = {
     authenticateToken,
     logout,
     nowProfile,
+    authenticateAdminToken
 };
