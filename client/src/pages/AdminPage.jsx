@@ -2,13 +2,13 @@ import { useContext, useState } from "react";
 import { Helmet } from "react-helmet";
 import { BrowserRouter, Router, Route, Routes } from "react-router-dom";
 import axios from "axios";
-
 import { UserContext } from "../UserContext";
 import AdminHeader from "../AdminHeader";
 import AdminSidebar from "../AdminSidebar";
-import AdminContent from "../AdminContent";
-import AdminContentUser from "../AdminContentUser";
-import AdminContentProduct from "../AdminContentProduct";
+import AdminDash from "../AdminDash";
+import AdminUser from "../AdminUser";
+import AdminProduct from "../AdminProduct";
+import AdminAddProduct from "../AdminAddProduct";
 
 export default function AdminPage() {
   const { ready, user, setUser } = useContext(UserContext);
@@ -34,22 +34,17 @@ export default function AdminPage() {
   return (
 
     <>
-      <title>Vietpro Mobile Shop - Administrator</title>
-      <link href="css/bootstrap.min.css" rel="stylesheet" />
-      <link href="css/datepicker3.css" rel="stylesheet" />
-      <link href="css/bootstrap-table.css" rel="stylesheet" />
-      <link href="css/styles.css" rel="stylesheet" />
-      {/*Icons*/}
-      {/*[if lt IE 9]>
 
+      <Helmet>
+        <script src="../public/js/jquery-1.11.1.min.js"></script>
+        <script src="../public/js/bootstrap.min.js"></script>
+        <script src="../public/js/bootstrap-table.js"></script>
+      </Helmet>
 
-<![endif]*/}
       <AdminHeader />
-      <div id="sidebar-collapse" className="col-sm-3 col-lg-2 sidebar">
-        <AdminSidebar />
-      </div>{/*/.sidebar*/}
+      <AdminSidebar />
+      <AdminAddProduct/>
 
-      <AdminContentUser />
 
 
     </>
@@ -57,9 +52,3 @@ export default function AdminPage() {
   );
 }
 
-
-{/* <Routes>
-<Route path="/admin-home" element={<AdminContent/>} />
-<Route path="/user" element={<AdminContentUser/>} />
-<Route path="/product" element={<AdminContent/>} />
-</Routes> */}
