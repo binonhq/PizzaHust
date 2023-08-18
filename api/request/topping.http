@@ -12,7 +12,8 @@ Content-Type: application/json
   "name": "Topping 1",
   "description": "The best topping in town",
   "imageUrl": "https://trivietphat.net/wp-content/uploads/2022/08/cach-lam-tran-chau-trang.webp",
-  "price": 10000
+  "price": 10000,
+  "category": "pasta"
 }
 
 ### Update Topping By Id

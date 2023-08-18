@@ -4,28 +4,17 @@ const stripe = require('stripe')('sk_test_51NfQlOH60qEOaHx4QJznzx97XrrtlMtySlfXe
 
 const createCheckoutSession = async (req, res) => {
     try {
-        const { orderId } = req.body;
-
-        const order = await OrderModel.findById(orderId);
-
-        if (!order) {
-            return res.status(404).json({ error: 'Order not found' });
-        }
-
-        if (order.status !== 'pending') {
-            return res.status(400).json({ error: 'Order not ready for payment' });
-        }
-
+        const { order } = req.body
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [
                 {
                     price_data: {
-                        currency: 'usd',
+                        currency: 'vnd',
                         product_data: {
-                            name: `Order ${order._id}`,
+                            name: `${order.user.name} Order`,
                         },
-                        unit_amount: order.price,
+                        unit_amount: Number(order.totalPrice + order.feePrice),
                     },
                     quantity: 1,
                 },
@@ -34,7 +23,6 @@ const createCheckoutSession = async (req, res) => {
             success_url: 'http://localhost:5173/payment/success',
             cancel_url: 'http://localhost:5173/cart',
         });
-
         res.status(200).json(session);
     } catch (error) {
         res.status(500).json({ error: error.message });

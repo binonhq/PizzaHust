@@ -8,7 +8,8 @@ export default function MenuProduct({ product }) {
   const [crust, setCrust] = useState("Thin");
   const [price, setPrice] = useState("");
   const [listTopping, setListTopping] = useState([]);
-  function updatePrice() {
+
+  useEffect(() => {
     if (product.category === "pizza") {
       let priceSize = 0;
       let pricePizza = 0;
@@ -31,14 +32,9 @@ export default function MenuProduct({ product }) {
       }
       setPrice(pricePizza + priceSize + priceTopping);
     } else {
-      // setPrice(product.price);
-      setPrice(10);
+      setPrice(product.price);
     }
-  }
-
-  useEffect(() => {
-    updatePrice();
-  }, [size, topping]);
+  }, [listTopping, product.category, product.price, size, topping]);
 
   useEffect(() => {
     axios
@@ -53,30 +49,51 @@ export default function MenuProduct({ product }) {
 
   function addToCart(ev) {
     ev.preventDefault();
-    let product_doc;
-    if (product.category === "pizza") {
-      product_doc = {
-        id: Object.keys(cart).length + 1,
-        product,
-        quantity: 1,
-        crust,
-        topping,
-        size,
-        price,
-      };
-    } else {
-      product_doc = {
-        id: Object.keys(cart).length + 1,
-        product,
-        quantity: 1,
-        price,
-      };
-    }
 
-    setCart([...cart, product_doc]);
+    const existingIndex = cart.findIndex((item) => {
+      if (item.product.category === "pizza") {
+        return (
+          item.product._id === product._id &&
+          item.crust === crust &&
+          item.topping === topping &&
+          item.size === size
+        );
+      } else {
+        return item.product._id === product._id;
+      }
+    });
+
+    if (existingIndex !== -1) {
+      const updatedCart = cart.map((item, index) => {
+        if (index === existingIndex) {
+          return {
+            ...item,
+            quantity: item.quantity + 1,
+          };
+        }
+        return item;
+      });
+      setCart(updatedCart);
+    } else {
+      const product_doc =
+        product.category === "pizza"
+          ? {
+              product,
+              quantity: 1,
+              crust,
+              topping,
+              size,
+              price,
+            }
+          : {
+              product,
+              quantity: 1,
+              price,
+            };
+      setCart([...cart, product_doc]);
+    }
     alert("Item added !");
   }
-
   return (
     <div className="bg-stone-800 bg-opacity-20 pt-8 px-5 pb-5 rounded-3xl flex flex-col justify-between">
       <div>
@@ -154,7 +171,12 @@ export default function MenuProduct({ product }) {
           className="w-full flex bg-gradient-to-r from-orange-400 to-orange-500 hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none font-semibold justify-between px-10 py-2 rounded-full mt-6"
         >
           <h1 className="">Add to cart</h1>
-          <h1 className="">{price} $</h1>
+          <h1>
+            {Number(price)
+              .toFixed(0)
+              .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
+            <span className="text-stone-200 px-1">đ</span>
+          </h1>
         </button>
       </div>
     </div>

@@ -13,6 +13,7 @@ import AdminPage from "./pages/AdminPage.jsx";
 import CartPage from "./pages/CartPage.jsx";
 import PaymentPage from "./pages/PaymentPage.jsx";
 import { CartContextProvider } from "./CartContext.jsx";
+import SuccessPayment from "./pages/SuccessPayment.jsx";
 axios.defaults.baseURL = "http://localhost:3001/";
 axios.defaults.withCredentials = true;
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="/account/profile" element={<ProfilePage />} />
             <Route path="/account/history" element={<HistoryPage />} />
             <Route path="/payment" element={<PaymentPage />} />
+            <Route path="/payment/success" element={<SuccessPayment />} />
           </Route>
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/login" element={<LoginPage />} />

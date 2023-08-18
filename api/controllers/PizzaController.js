@@ -1,8 +1,6 @@
 const PizzaModel = require('../models/PizzaModel');
 
 const getAllPizzas = async (req, res) => {
-    const { n } = req.params;
-    console.log(req.params, n);
     try {
         const pizzas = await PizzaModel.find();
         res.status(200).json(pizzas);

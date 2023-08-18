@@ -12,9 +12,11 @@ Content-Type: application/json
   "name": "Pizza 1",
   "description": "The best pizza in town",
   "imageUrl": "https://cdn.tgdd.vn/Files/2021/12/07/1402760/tong-hop-cac-cach-lam-pizza-chi-can-o-nha-cung-co-the-thuong-thuc-202112070252570032.jpg",
-  "priceS": 200000,
-  "priceM": 250000,
-  "priceL": 300000
+  "price": {
+    "S" : 50000,
+    "M" : 70000,
+    "L" : 12000
+  }
 }
 
 ### Update Pizza By Id

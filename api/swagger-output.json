@@ -152,7 +152,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "orderId": {
+                "order": {
                   "example": "any"
                 }
               }
@@ -162,12 +162,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -337,6 +331,18 @@
                 },
                 "items": {
                   "example": "any"
+                },
+                "totalPrice": {
+                  "example": "any"
+                },
+                "feePrice": {
+                  "example": "any"
+                },
+                "paymentMethod": {
+                  "example": "any"
+                },
+                "address": {
+                  "example": "any"
                 }
               }
             }
@@ -481,6 +487,9 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -748,6 +757,9 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
