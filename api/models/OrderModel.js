@@ -49,10 +49,14 @@ orderSchema.pre('save', async function (next) {
                 if (!topping) {
                     throw new Error(`Topping with id ${toppingId} not found`);
                 }
+                topping.orderCount++;
+                await topping.save();
                 itemPrice += topping.price;
             }
-
+            pizzaItem.orderCount++;
+            await pizzaItem.save();
             totalPrice += itemPrice * pizzaItem.quantity;
+
         }
 
         for (const sideDishItem of this.items.sideDishes) {
@@ -60,7 +64,8 @@ orderSchema.pre('save', async function (next) {
             if (!sideDish) {
                 throw new Error(`Side dish with id ${sideDishItem._id} not found`);
             }
-
+            sideDish.orderCount++;
+            await sideDish.save();
             totalPrice += sideDish.price * sideDishItem.quantity;
         }
 
@@ -69,7 +74,8 @@ orderSchema.pre('save', async function (next) {
             if (!combo) {
                 throw new Error(`Combo with id ${comboItem._id} not found`);
             }
-
+            combo.orderCount++;
+            await combo.save();
             totalPrice += combo.price * comboItem.quantity;
         }
 
