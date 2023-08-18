@@ -1,51 +1,80 @@
+import axios from "axios";
 import { CartContext } from "./CartContext";
 import { useContext, useState, useEffect } from "react";
 export default function MenuProduct({ product }) {
+  // console.log(product);
+  product.type = "pizza";
   const { cart, setCart } = useContext(CartContext);
   const [size, setSize] = useState("Large");
-  const [crust, setCrust] = useState("Regular");
-  const [price, setPrice] = useState(20);
+  const [topping, setTopping] = useState("None");
+  const [crust, setCrust] = useState("Thin");
+  const [price, setPrice] = useState("");
+  const [listTopping, setListTopping] = useState([]);
   function updatePrice() {
-    if (size === "Small") {
-      if (crust === "Thin") {
-        setPrice(10 + 3); // Update price for small size and thin crust
-      } else if (crust === "Cheese Sausage") {
-        setPrice(10 + 7); // Update price for small size and cheese sausage crust
-      } else {
-        setPrice(10); // Default price for small size
+    if (product.type === "pizza") {
+      let priceSize = 0;
+      let pricePizza = 0;
+      let priceTopping = 0;
+      switch (size) {
+        case "Small":
+          priceSize = product.priceS;
+          break;
+        case "Medium":
+          priceSize = product.priceM;
+          break;
+        default:
+          priceSize = product.priceL;
       }
-    } else if (size === "Medium") {
-      if (crust === "Thin") {
-        setPrice(15 + 3); // Update price for medium size and thin crust
-      } else if (crust === "Cheese Sausage") {
-        setPrice(15 + 7); // Update price for medium size and cheese sausage crust
+      if (topping === "None") {
+        priceTopping = 0;
       } else {
-        setPrice(15); // Default price for medium size
+        priceTopping = listTopping.filter((item) => item.name === topping)[0]
+          .price;
       }
+      setPrice(pricePizza + priceSize + priceTopping);
     } else {
-      // Large size
-      if (crust === "Thin") {
-        setPrice(20 + 3); // Update price for large size and thin crust
-      } else if (crust === "Cheese Sausage") {
-        setPrice(20 + 7); // Update price for large size and cheese sausage crust
-      } else {
-        setPrice(20); // Default price for large size
-      }
+      // setPrice(product.price);
+      setPrice(10);
     }
   }
 
   useEffect(() => {
     updatePrice();
-  }, [size, crust]);
+  }, [size, topping]);
+
+  useEffect(() => {
+    axios
+      .get("/toppings", {})
+      .then((response) => {
+        setListTopping(response.data);
+      })
+      .catch((e) => {
+        alert(e);
+      });
+  }, []);
 
   function addToCart(ev) {
-    const product_doc = {
-      id: Object.keys(cart).length + 1,
-      product,
-      quantity: 1,
-      price: 100,
-    };
     ev.preventDefault();
+    let product_doc;
+    if (product.type === "pizza") {
+      product_doc = {
+        id: Object.keys(cart).length + 1,
+        product,
+        quantity: 1,
+        crust,
+        topping,
+        size,
+        price,
+      };
+    } else {
+      product_doc = {
+        id: Object.keys(cart).length + 1,
+        product,
+        quantity: 1,
+        price,
+      };
+    }
+
     setCart([...cart, product_doc]);
     alert("Item added !");
   }
@@ -53,11 +82,13 @@ export default function MenuProduct({ product }) {
   return (
     <div className="bg-stone-800 bg-opacity-20 pt-8 px-5 pb-5 rounded-3xl flex flex-col justify-between">
       <div>
-        <img className="w-1/2 block mx-auto" src={product.img} alt="" />
+        <img className="w-1/2 block mx-auto" src={product.imageUrl} alt="" />
         <h1 className="text-center font-semibold text-3xl pb-3 pt-4">
-          {product.title}
+          {product.name}
         </h1>
-        <h1 className="text-sm text-center text-gray-400">{product.desc}</h1>
+        <h1 className="text-sm text-center text-gray-400">
+          {product.description}
+        </h1>
       </div>
       <div className="mx-4">
         {product.type === "pizza" && (
@@ -81,22 +112,42 @@ export default function MenuProduct({ product }) {
               <option>Small</option>
             </select>
             <label
-              htmlFor="topping-select"
+              htmlFor="size-select"
               className="block text-sm font-medium my-2 dark:text-white"
             >
-              Select your crust
+              Select your size
             </label>
             <select
-              id="topping-select"
+              id="crust-select"
               value={crust}
               onChange={(ev) => {
                 setCrust(ev.target.value);
               }}
               className="py-2 px-2 w-full border-gray-200 rounded-md text-sm bg-stone-800"
             >
-              <option selected>Regular</option>
-              <option>Thin</option>
-              <option>Cheese Sausage</option>
+              <option selected>Thin</option>
+              <option>Hand Toosed</option>
+              <option>Pan</option>
+            </select>
+            <label
+              htmlFor="topping-select"
+              className="block text-sm font-medium my-2 dark:text-white"
+            >
+              Select your topping
+            </label>
+            <select
+              id="topping-select"
+              value={topping}
+              onChange={(ev) => {
+                setTopping(ev.target.value);
+              }}
+              className="py-2 px-2 w-full border-gray-200 rounded-md text-sm bg-stone-800"
+            >
+              <option selected>None</option>
+              {listTopping.length &&
+                listTopping.map((item) => (
+                  <option key={item._id}>{item.name}</option>
+                ))}
             </select>
           </div>
         )}

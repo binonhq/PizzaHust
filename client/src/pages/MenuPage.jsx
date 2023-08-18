@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import MenuNav from "../MenuNav";
 import MenuProduct from "../MenuProduct";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
 export default function MenuPage() {
   const menuDoc = [
     {
@@ -80,17 +82,32 @@ export default function MenuPage() {
       img: "https://mymenu.vn/assets/images/products/733/pizza-peperoni-mn-01.png",
     },
   ];
+  const [listItem, setListItem] = useState([]);
   const { pathname } = useLocation();
   let subpage = pathname.split("/")?.[2];
   if (subpage === undefined) {
     subpage = "all";
   }
+  console.log(subpage);
+  useEffect(() => {
+    if (subpage === "pizza") {
+      axios
+        .get("/pizzas", {})
+        .then((response) => {
+          setListItem(response.data);
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    }
+  }, [subpage]);
+
   return (
     <div className="px-60 mb-20" id="menu">
       <MenuNav />
       <div className="mt-4 grid grid-cols-4 gap-4 pt-8">
-        {menuDoc.length > 0 &&
-          menuDoc.map((item) => <MenuProduct product={item} key={item} />)}
+        {listItem.length > 0 &&
+          listItem.map((item) => <MenuProduct product={item} key={item} />)}
       </div>
     </div>
   );

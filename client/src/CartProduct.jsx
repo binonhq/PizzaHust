@@ -9,12 +9,12 @@ export default function CartProduct({ item }) {
   }
   return (
     <div className="mb-3 border-b-2 border-stone-700 p-3 flex justify-start">
-      <img className="w-32 h-34 cover-full" src={item.product.img} />
+      <img className="w-32 h-34 cover-full" src={item.product.imageUrl} />
       <div className="ml-4 w-full">
         <div className="flex justify-between gap-2">
           <div>
-            <h2 className="text-3xl font-bold">{item.product.title}</h2>
-            <p className="mt-1 text-sm">{item.product.desc}</p>
+            <h2 className="text-3xl font-bold">{item.product.name}</h2>
+            <p className="mt-1 text-sm">{item.product.description}</p>
           </div>
           <div className="mt-0">
             <div className="flex items-center">

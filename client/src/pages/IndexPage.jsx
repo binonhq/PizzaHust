@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import pizza2 from "../images/pizza2.png";
 import pizza3 from "../images/pizza3.png";
 import pizza5 from "../images/pizza5.jpg";
@@ -5,6 +6,7 @@ import pizza6 from "../images/pizza6.png";
 import pizza7 from "../images/pizza7.png";
 import MenuProduct from "../MenuProduct";
 import { Link } from "react-router-dom";
+import axios from "axios";
 export default function IndexPage() {
   const menuDoc = [
     {
@@ -52,6 +54,15 @@ export default function IndexPage() {
       img: "https://mymenu.vn/assets/images/products/733/pizza-peperoni-mn-01.png",
     },
   ];
+
+  useEffect(() => {
+    axios
+      .get("/pizzas", {
+        
+      })
+      .then((response) => {})
+      .catch((e) => {});
+  }, []);
   return (
     <div className="">
       <div className="flex justify-between mt-12 pl-60 pr-10 " id="home">

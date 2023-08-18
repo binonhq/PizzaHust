@@ -1,6 +1,8 @@
 const PizzaModel = require('../models/PizzaModel');
 
 const getAllPizzas = async (req, res) => {
+    const { n } = req.params;
+    console.log(req.params, n);
     try {
         const pizzas = await PizzaModel.find();
         res.status(200).json(pizzas);
@@ -44,7 +46,7 @@ const createPizza = async (req, res) => {
         res.status(201).json(pizza);
     } catch (error) {
         if (error.name === 'ValidationError') {
-            return res.status(400).json({"message": error.message});
+            return res.status(400).json({ "message": error.message });
         } else {
             res.status(500).json({ error: 'Failed to create pizza' });
         }

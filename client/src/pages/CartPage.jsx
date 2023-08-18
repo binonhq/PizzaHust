@@ -2,9 +2,12 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../CartContext";
 import CartProduct from "../CartProduct";
+import { UserContext } from "../UserContext";
 export default function CartPage() {
   const { cart } = useContext(CartContext);
+  const { user, ready } = useContext(UserContext);
   let totalPrice = 0;
+  let feePrice = 5;
   cart.map((item) => {
     totalPrice += item.quantity * item.price;
   });
@@ -130,15 +133,15 @@ export default function CartPage() {
           </div>
           <div className="flex justify-between mx-5 text-stone-400">
             <h1 className="">Subtotal</h1>
-            <h1>$200.00</h1>
+            <h1>${totalPrice}</h1>
           </div>
           <div className="flex justify-between mx-5 text-stone-400">
             <h1 className="">Delivery fee</h1>
-            <h1>$5.00</h1>
+            <h1>${feePrice}</h1>
           </div>
           <div className="flex font-semibold mt-3 justify-between mx-5 text-2xl text-stone-400">
             <h1 className="">Total</h1>
-            <h1>${totalPrice}</h1>
+            <h1>${totalPrice + feePrice}</h1>
           </div>
           <Link to="/payment">
             <button className="mx-auto my-3 px-20 py-2 font-semibold rounded-full text-white bg-gradient-to-r from-orange-400 to-orange-500 flex gap-2 hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none">
