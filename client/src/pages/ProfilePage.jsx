@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import axios from "axios";
@@ -7,6 +7,14 @@ import AccountNav from "../AccountNav";
 export default function ProfilePage() {
   const { ready, user, setUser } = useContext(UserContext);
   const [redirect, setRedirect] = useState(null);
+  const [editing, setEditing] = useState(false);
+  const [editedData, setEditedData] = useState({
+    name: "",
+    email: "",
+    phoneNumber: "",
+    address: "",
+  });
+
   if (!ready) {
     return "Loading...";
   }
@@ -21,9 +29,34 @@ export default function ProfilePage() {
     setRedirect("/");
   }
 
+  const handleEdit = () => {
+    setEditedData({
+      name: user.name,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
+      address: user.address,
+    });
+    setEditing(true);
+  };
+
+  const handleCancelEdit = () => {
+    setEditing(false);
+  };
+
+  const handleSaveEdit = async () => {
+    try {
+      await axios.put(`users/${user._id}`, editedData);
+      setUser({ ...user, ...editedData });
+      setEditing(false);
+    } catch (error) {
+      console.error("Failed to update user:", error);
+    }
+  };
+
   if (redirect) {
     return <Navigate to={redirect} />;
   }
+
   return (
     <div className="mx-auto pt-5">
       <AccountNav />
@@ -40,12 +73,104 @@ export default function ProfilePage() {
             <tr>
               <td className="font-semibold">Name: </td>
               <td className="capitalize pl-10 md:pl-20 text-slate-500">
-                {user.name}
+                {editing ? (
+                  <input
+                    className="bg-transparent border-2 border-white text-white"
+                    type="text"
+                    value={editedData.name}
+                    onChange={(e) =>
+                      setEditedData({ ...editedData, name: e.target.value })
+                    }
+                  />
+                ) : (
+                  user.name
+                )}
               </td>
             </tr>
             <tr>
               <td className="font-semibold">Email: </td>
-              <td className="pl-10 md:pl-20 text-slate-500">{user.email}</td>
+              <td className="pl-10 md:pl-20 text-slate-500">
+                {editing ? (
+                  <input
+                    className="bg-transparent border-2 border-white text-white"
+                    type="email"
+                    value={editedData.email}
+                    onChange={(e) =>
+                      setEditedData({ ...editedData, email: e.target.value })
+                    }
+                  />
+                ) : (
+                  user.email
+                )}
+              </td>
+            </tr>
+            <tr>
+              <td className="font-semibold">Phone: </td>
+              <td className="pl-10 md:pl-20 text-slate-500">
+                {editing ? (
+                  <input
+                    className="bg-transparent border-2 border-white text-white"
+                    type="tel"
+                    value={editedData.phoneNumber}
+                    onChange={(e) =>
+                      setEditedData({
+                        ...editedData,
+                        phoneNumber: e.target.value,
+                      })
+                    }
+                  />
+                ) : (
+                  user.phoneNumber
+                )}
+              </td>
+            </tr>
+            <tr>
+              <td className="font-semibold">Address: </td>
+              <td className="pl-10 md:pl-20 text-slate-500">
+                {editing ? (
+                  <input
+                    className="bg-transparent border-2 border-white text-white"
+                    type="text"
+                    value={editedData.address}
+                    onChange={(e) =>
+                      setEditedData({
+                        ...editedData,
+                        address: e.target.value,
+                      })
+                    }
+                  />
+                ) : (
+                  user.address
+                )}
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td className="pl-10 md:pl-20">
+                {editing ? (
+                  <div className="flex gap-2">
+                    <button
+                      className="mt-5 pr-5 pl-4 py-2 font-semibold rounded-full text-white bg-gradient-to-r from-orange-400 to-orange-500 flex gap-2 hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none"
+                      onClick={handleSaveEdit}
+                    >
+                      Save
+                    </button>
+                    <button
+                      className="mt-5 pr-5 pl-4 py-2 font-semibold rounded-full text-white bg-gradient-to-r from-orange-400 to-orange-500 flex gap-2 hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none"
+                      onClick={handleCancelEdit}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    className="mt-5 pr-5 pl-4 py-2 font-semibold rounded-full text-white bg-gradient-to-r from-orange-400 to-orange-500 flex gap-2 hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none"
+                    onClick={handleEdit}
+                  >
+                    Edit
+                  </button>
+                )}
+              </td>
             </tr>
           </tbody>
         </table>

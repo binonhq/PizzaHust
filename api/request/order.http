@@ -9,15 +9,41 @@ POST localhost:3000/orders
 Content-Type: application/json
 
 {
-  "user": "64da482c880aca0bda3e56da",
-  "items": [
-    {
-      "pizza": "64da825b200f0e7f76b4bf28",
-      "pizzaSize": "L",
-      "topping": [],
-      "quantity": 1
-    }
-  ]
+  "items": {
+    "pizzas": [
+      {
+        "pizza": "64df8af618f7c74b27d46df3",
+        "size": "Large",
+        "crust": "Thin",
+        "quantity": 1,
+        "price": 100000,
+        "_id": "64dfbd351e1ff2d06718f6e5"
+      }
+    ],
+    "sideDishes": [
+      {
+        "quantity": 1,
+        "price": 20000,
+        "_id": "64dfbd351e1ff2d06718f6e6"
+        },
+      {
+        "quantity": 1,
+        "price": 20000,
+        "_id": "64dfbd351e1ff2d06718f6e7"
+      }
+    ],
+    "combos": []
+    },
+  "_id": "64dfbd351e1ff2d06718f6e4",
+  "user": "64dba81def5fede37b10e835",
+  "status": "pending",
+  "paymentMethod": "cod",
+  "totalPrice": 140000,
+  "feePrice": 10000,
+  "address": "Số 32 Đại Từ, Hoàng Mai, Hà Nội",
+  "createdAt": "2023-08-18T18:49:25.307Z",
+  "updatedAt": "2023-08-18T18:49:25.307Z",
+  "__v": 0
 }
 
 ### Update Order By Id

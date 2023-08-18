@@ -9,14 +9,20 @@ POST localhost:3000/pizzas
 Content-Type: application/json
 
 {
-  "name": "Pizza 1",
-  "description": "The best pizza in town",
-  "imageUrl": "https://cdn.tgdd.vn/Files/2021/12/07/1402760/tong-hop-cac-cach-lam-pizza-chi-can-o-nha-cung-co-the-thuong-thuc-202112070252570032.jpg",
   "price": {
-    "S" : 50000,
-    "M" : 70000,
-    "L" : 12000
-  }
+    "S": 70000,
+    "M": 100000,
+    "L": 119000
+  },
+  "_id": "64df8af218f7c74b27d46df1",
+  "name": "Test Pizza 1",
+  "description": "Best pizza ever",
+  "imageUrl": "https://mymenu.vn/assets/images/products/733/pizza-peperoni-mn-01.png",
+  "category": "pizza",
+  "orderCount": 0,
+  "createdAt": "2023-08-18T15:14:58.480Z",
+  "updatedAt": "2023-08-18T15:14:58.480Z",
+  "__v": 0
 }
 
 ### Update Pizza By Id

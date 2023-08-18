@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../CartContext";
 import CartProduct from "../CartProduct";
 import { UserContext } from "../UserContext";
 import axios from "axios";
 export default function CartPage() {
-  const { cart } = useContext(CartContext);
+  const navigate = useNavigate();
+  const { cart, setCart } = useContext(CartContext);
   const { user } = useContext(UserContext);
   const [paymentMethod, setPaymentMethod] = useState("online");
   const [address, setAddress] = useState(user ? user.address : "");
@@ -34,21 +35,24 @@ export default function CartPage() {
         paymentMethod,
         address,
       };
-      // console.log(paymentMethod === "online");
       if (paymentMethod === "online") {
         const rs = await axios.post("/payment/create-checkout-session", {
           order,
         });
         window.open(rs.data.url);
         console.log(rs);
+      } else {
+        try {
+          const response = await axios.post("/orders", order);
+          if (response.status === 201) {
+            alert("Place order successful!");
+            setCart([]);
+            navigate("/");
+          }
+        } catch (e) {
+          console.log(e);
+        }
       }
-
-      // try {
-      //   const response = await axios.post("/orders", order);
-      //   console.log(response);
-      // } catch (e) {
-      //   console.log(e);
-      // }
     }
   }
   const pizzaItems = cart
@@ -82,8 +86,12 @@ export default function CartPage() {
 
   return (
     <div className="xl:w-1/2 w-full mx-auto xl:p-0 px-10 mt-8 mb-12">
-      {!cart.length && <h1>Cart empty</h1>}
-      {cart.length && (
+      {!cart.length && (
+        <div className="p-20 my-auto bg-stone-900 rounded-3xl">
+          <h1 className="text-center text-3xl font-semibold">Cart empty</h1>
+        </div>
+      )}
+      {cart.length !== 0 && (
         <div className="flex flex-col bg-stone-900 py-5 px-10 rounded-3xl">
           <div className="flex justify-between font-semibold mb-3">
             <h1>YOUR CART</h1>

@@ -3,7 +3,7 @@ import { CartContext } from "./CartContext";
 import { useContext, useState, useEffect } from "react";
 export default function MenuProduct({ product }) {
   const { cart, setCart } = useContext(CartContext);
-  const [size, setSize] = useState("Large");
+  const [size, setSize] = useState("L");
   const [topping, setTopping] = useState("None");
   const [crust, setCrust] = useState("Thin");
   const [price, setPrice] = useState("");
@@ -14,16 +14,7 @@ export default function MenuProduct({ product }) {
       let priceSize = 0;
       let pricePizza = 0;
       let priceTopping = 0;
-      switch (size) {
-        case "Small":
-          priceSize = product.price.S;
-          break;
-        case "Medium":
-          priceSize = product.price.M;
-          break;
-        default:
-          priceSize = product.price.L;
-      }
+      priceSize = product.price[size];
       if (topping === "None") {
         priceTopping = 0;
       } else {
@@ -97,7 +88,7 @@ export default function MenuProduct({ product }) {
   return (
     <div className="bg-stone-800 bg-opacity-20 pt-8 px-5 pb-5 rounded-3xl flex flex-col justify-between">
       <div>
-        <img className="w-1/2 block mx-auto" src={product.imageUrl} alt="" />
+        <img className="w-1/2 h-40 mx-auto" src={product.imageUrl} alt="" />
         <h1 className="text-center font-semibold text-3xl pb-3 pt-4">
           {product.name}
         </h1>
@@ -122,9 +113,9 @@ export default function MenuProduct({ product }) {
               }}
               className="py-2 px-2 w-full border-gray-200 rounded-md text-sm bg-stone-800"
             >
-              <option selected>Large</option>
-              <option>Medium</option>
-              <option>Small</option>
+              <option value={"L"}>Large</option>
+              <option value={"M"}>Medium</option>
+              <option value={"S"}>Small</option>
             </select>
             <label
               htmlFor="size-select"
@@ -140,7 +131,7 @@ export default function MenuProduct({ product }) {
               }}
               className="py-2 px-2 w-full border-gray-200 rounded-md text-sm bg-stone-800"
             >
-              <option selected>Thin</option>
+              <option>Thin</option>
               <option>Hand Toosed</option>
               <option>Pan</option>
             </select>
@@ -158,7 +149,7 @@ export default function MenuProduct({ product }) {
               }}
               className="py-2 px-2 w-full border-gray-200 rounded-md text-sm bg-stone-800"
             >
-              <option selected>None</option>
+              <option>None</option>
               {listTopping.length &&
                 listTopping.map((item) => (
                   <option key={item._id}>{item.name}</option>
