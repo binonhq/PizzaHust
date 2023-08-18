@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState  } from "react";
+import axios from "axios";
 import { CartContext } from "../CartContext";
 import CartProduct from "../CartProduct";
 import { UserContext } from "../UserContext";
@@ -11,6 +11,42 @@ export default function CartPage() {
   cart.map((item) => {
     totalPrice += item.quantity * item.price;
   });
+  
+  const handlePayment = async () => {
+    try {
+      console.log(cart);
+      console.log(user._id);
+      const items = {
+        pizzas: cart.filter(item => item.category === 'pizza').map(item => ({
+          _id: item._id,
+          size: item.size,
+          toppings: item.toppings.map(topping => topping._id),
+          quantity: item.quantity,
+        })),
+        sideDishes: cart.filter(item => item.category === 'sideDish').map(item => ({
+          _id: item._id,
+          quantity: item.quantity,
+        })),
+        combos: cart.filter(item => item.category === 'combo').map(item => ({
+          _id: item._id,
+          quantity: item.quantity,
+        })),
+      };
+
+      console.log(items);
+      const orderResponse = await axios.post("/orders", {
+        user: user._id,
+        items: items
+      });
+      const { orderId } = orderResponse.data;
+      const checkoutSessionResponse = await axios.post("/payment/create-checkout-session", {
+        orderId: orderId, 
+      });
+      window.location.href = checkoutSessionResponse.data.url;
+    } catch (error) {
+      console.error("Error initiating payment:", error);
+    }
+  };
   return (
     <div className="xl:w-1/2 w-full mx-auto xl:p-0 px-10 mt-8 mb-12">
       {cart.length === 0 && <h1>Cart empty</h1>}
@@ -143,11 +179,12 @@ export default function CartPage() {
             <h1 className="">Total</h1>
             <h1>${totalPrice + feePrice}</h1>
           </div>
-          <Link to="/payment">
-            <button className="mx-auto my-3 px-20 py-2 font-semibold rounded-full text-white bg-gradient-to-r from-orange-400 to-orange-500 flex gap-2 hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none">
-              Place order
-            </button>
-          </Link>
+            <button
+              onClick={handlePayment}
+              className="mx-auto my-3 px-20 py-2 font-semibold rounded-full text-white bg-gradient-to-r from-orange-400 to-orange-500 flex gap-2 hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none"
+            >
+            <h1 className="font-semibold ">Payment</h1>
+          </button>
         </div>
       )}
     </div>

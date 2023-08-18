@@ -8,18 +8,18 @@ const orderSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, required: true, immutable: true, ref: 'User' },
     items: {
         pizzas: [{
-            _id: {type: mongoose.Schema.Types.ObjectId, required: true, immutable: true, ref: 'Pizza'},
-            size: {type: String, enum: ['S', 'M', 'L'], required: true, immutable: true},
+            _id: {type: mongoose.Schema.Types.ObjectId, immutable: true, ref: 'Pizza'},
+            size: {type: String, enum: ['S', 'M', 'L'], immutable: true},
             toppings: [{type: mongoose.Schema.Types.ObjectId, immutable: true, ref: 'Topping'}],
-            quantity: {type: Number, required: true, immutable: true}
+            quantity: {type: Number, immutable: true}
         }],
         sideDishes: [{
-            _id: {type: mongoose.Schema.Types.ObjectId, required: true, immutable: true, ref: 'SideDish'},
-            quantity: {type: Number, required: true, immutable: true}
+            _id: {type: mongoose.Schema.Types.ObjectId, immutable: true, ref: 'SideDish'},
+            quantity: {type: Number, min: 0, immutable: true}
         }],
         combos: [{
-            _id: {type: mongoose.Schema.Types.ObjectId, required: true, immutable: true, ref: 'Combo'},
-            quantity: {type: Number, required: true, immutable: true}
+            _id: {type: mongoose.Schema.Types.ObjectId, immutable: true, ref: 'Combo'},
+            quantity: {type: Number, min: 0, immutable: true}
         }]
     },
     status: { type: String, enum: ['pending', 'paid', 'cancel'], default: 'pending', required: true },
