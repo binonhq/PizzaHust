@@ -27,20 +27,22 @@ const createSideDish = async (req, res) => {
         name,
         description,
         imageUrl,
-        price
+        price,
+        category
     } = req.body;
     try {
         const dish = new SideDishModel({
             name,
             description,
             imageUrl,
-            price
+            price,
+            category
         });
         await dish.save();
         res.status(201).json(dish);
     } catch (error) {
         if (error.name === 'ValidationError') {
-            return res.status(400).json({"message": error.message});
+            return res.status(400).json({ "message": error.message });
         } else {
             res.status(500).json({ error: 'Failed to create dish' });
         }

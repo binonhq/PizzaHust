@@ -2,8 +2,6 @@ import axios from "axios";
 import { CartContext } from "./CartContext";
 import { useContext, useState, useEffect } from "react";
 export default function MenuProduct({ product }) {
-  // console.log(product);
-  product.type = "pizza";
   const { cart, setCart } = useContext(CartContext);
   const [size, setSize] = useState("Large");
   const [topping, setTopping] = useState("None");
@@ -11,19 +9,19 @@ export default function MenuProduct({ product }) {
   const [price, setPrice] = useState("");
   const [listTopping, setListTopping] = useState([]);
   function updatePrice() {
-    if (product.type === "pizza") {
+    if (product.category === "pizza") {
       let priceSize = 0;
       let pricePizza = 0;
       let priceTopping = 0;
       switch (size) {
         case "Small":
-          priceSize = product.priceS;
+          priceSize = product.price.S;
           break;
         case "Medium":
-          priceSize = product.priceM;
+          priceSize = product.price.M;
           break;
         default:
-          priceSize = product.priceL;
+          priceSize = product.price.L;
       }
       if (topping === "None") {
         priceTopping = 0;
@@ -56,7 +54,7 @@ export default function MenuProduct({ product }) {
   function addToCart(ev) {
     ev.preventDefault();
     let product_doc;
-    if (product.type === "pizza") {
+    if (product.category === "pizza") {
       product_doc = {
         id: Object.keys(cart).length + 1,
         product,
@@ -91,7 +89,7 @@ export default function MenuProduct({ product }) {
         </h1>
       </div>
       <div className="mx-4">
-        {product.type === "pizza" && (
+        {product.category === "pizza" && (
           <div>
             <label
               htmlFor="size-select"

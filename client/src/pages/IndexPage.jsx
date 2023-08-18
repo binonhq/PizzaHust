@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import pizza2 from "../images/pizza2.png";
 import pizza3 from "../images/pizza3.png";
 import pizza5 from "../images/pizza5.jpg";
@@ -8,60 +8,16 @@ import MenuProduct from "../MenuProduct";
 import { Link } from "react-router-dom";
 import axios from "axios";
 export default function IndexPage() {
-  const menuDoc = [
-    {
-      type: "pizza",
-      title: "Italian",
-      desc: "Filling: onion, potato, tomato, mushrooms, cheese, olives, meat...",
-      price_s: 10,
-      price_m: 15,
-      price_l: 20,
-      topping_1: 3,
-      topping_2: 5,
-      img: "https://mymenu.vn/assets/images/products/733/pizza-peperoni-mn-01.png",
-    },
-    {
-      type: "pizza",
-      title: "Italian",
-      desc: "Filling: onion, potato, tomato, mushrooms, cheese, olives, meat...",
-      price_s: 10,
-      price_m: 15,
-      price_l: 20,
-      topping_1: 3,
-      topping_2: 5,
-      img: "https://mymenu.vn/assets/images/products/733/pizza-peperoni-mn-01.png",
-    },
-    {
-      type: "pizza",
-      title: "Italian",
-      desc: "Filling: onion, potato, tomato, mushrooms, cheese, olives, meat...",
-      price_s: 10,
-      price_m: 15,
-      price_l: 20,
-      topping_1: 3,
-      topping_2: 5,
-      img: "https://mymenu.vn/assets/images/products/733/pizza-peperoni-mn-01.png",
-    },
-    {
-      type: "pizza",
-      title: "Italian",
-      desc: "Filling: onion, potato, tomato, mushrooms, cheese, olives, meat...",
-      price_s: 10,
-      price_m: 15,
-      price_l: 20,
-      topping_1: 3,
-      topping_2: 5,
-      img: "https://mymenu.vn/assets/images/products/733/pizza-peperoni-mn-01.png",
-    },
-  ];
-
+  const [listItem, setListItem] = useState([]);
   useEffect(() => {
     axios
-      .get("/pizzas", {
-        
+      .get("/pizzas/hot", {})
+      .then((response) => {
+        setListItem(response.data);
       })
-      .then((response) => {})
-      .catch((e) => {});
+      .catch((e) => {
+        console.log(e);
+      });
   }, []);
   return (
     <div className="">
@@ -101,8 +57,8 @@ export default function IndexPage() {
         </h1>
       </div>
       <div className="mt-4 grid grid-cols-4 gap-4 pt-8 mx-60">
-        {menuDoc.length > 0 &&
-          menuDoc.map((item) => <MenuProduct product={item} key={item} />)}
+        {listItem.length &&
+          listItem.map((item) => <MenuProduct product={item} key={item._id} />)}
       </div>
       <div className="flex justify-between ml-60 mt-20 -mb-16" id="about-us">
         <div className="w-1/2">

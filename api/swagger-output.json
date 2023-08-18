@@ -91,11 +91,6 @@
         "description": "",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
             "name": "body",
             "in": "body",
             "schema": {
@@ -183,13 +178,6 @@
     "/users/": {
       "get": {
         "description": "",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -255,11 +243,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
           }
         ],
         "responses": {
@@ -285,11 +268,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
           }
         ],
         "responses": {
@@ -314,11 +292,6 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
             "type": "string"
           }
         ],
@@ -353,11 +326,6 @@
       "post": {
         "description": "",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
           {
             "name": "body",
             "in": "body",
@@ -399,11 +367,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
           }
         ],
         "responses": {
@@ -451,11 +414,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
           }
         ],
         "responses": {
@@ -490,11 +448,6 @@
         "description": "",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
             "name": "body",
             "in": "body",
             "schema": {
@@ -528,9 +481,6 @@
           },
           "400": {
             "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -582,11 +532,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
           }
         ],
         "responses": {
@@ -611,11 +556,6 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
             "type": "string"
           }
         ],
@@ -650,11 +590,6 @@
       "post": {
         "description": "",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
           {
             "name": "body",
             "in": "body",
@@ -724,11 +659,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
           }
         ],
         "responses": {
@@ -753,11 +683,6 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
             "type": "string"
           }
         ],
@@ -793,11 +718,6 @@
         "description": "",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
             "name": "body",
             "in": "body",
             "schema": {
@@ -814,6 +734,9 @@
                 },
                 "price": {
                   "example": "any"
+                },
+                "category": {
+                  "example": "any"
                 }
               }
             }
@@ -825,9 +748,6 @@
           },
           "400": {
             "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"
@@ -866,11 +786,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
           }
         ],
         "responses": {
@@ -895,11 +810,6 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
             "type": "string"
           }
         ],
@@ -934,11 +844,6 @@
       "post": {
         "description": "",
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          },
           {
             "name": "body",
             "in": "body",
@@ -1008,11 +913,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
           }
         ],
         "responses": {
@@ -1037,11 +937,6 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
             "type": "string"
           }
         ],

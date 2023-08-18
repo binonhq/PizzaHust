@@ -75,12 +75,9 @@ const logout = async (req, res) => {
 const nowProfile = async (req, res) => {
     const { token } = req.cookies;
     if (token) {
-        jwt.verify(token, process.env.TOKEN_SECRET, {}, (err, user) => {
-            if (err) {
-                throw err;
-            }
-            res.json(user)
-        })
+        const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+        const user = await UserModel.findById(decoded._id);
+        res.json(user);
     } else res.json(null)
 }
 const authenticateAdminToken = async (req, res, next) => {

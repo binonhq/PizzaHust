@@ -33,14 +33,17 @@ const createPizza = async (req, res) => {
         priceM,
         priceL
     } = req.body;
+    const price = {
+        S: priceS,
+        M: priceM,
+        L: priceL
+    }
     try {
         const pizza = new PizzaModel({
             name,
             description,
             imageUrl,
-            priceS,
-            priceM,
-            priceL
+            price
         });
         await pizza.save();
         res.status(201).json(pizza);

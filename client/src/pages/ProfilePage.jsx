@@ -7,7 +7,6 @@ import AccountNav from "../AccountNav";
 export default function ProfilePage() {
   const { ready, user, setUser } = useContext(UserContext);
   const [redirect, setRedirect] = useState(null);
-  // console.log(user);
   if (!ready) {
     return "Loading...";
   }
