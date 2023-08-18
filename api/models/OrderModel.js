@@ -22,8 +22,8 @@ const orderSchema = new mongoose.Schema({
             quantity: {type: Number, min: 0, immutable: true}
         }]
     },
-    status: { type: String, enum: ['pending', 'paid', 'cancel'], default: 'pending', required: true },
-    paymentMethod: { type: String, enum: ['cod', 'online'], required: true },
+    status: { type: String, enum: ['pending', 'paid', 'cancel'], default: 'pending' },
+    paymentMethod: { type: String, enum: ['cod', 'online'], default: 'online' },
     price: { type: Number, min: 0, immutable: true }
 }, {
     timestamps: true,

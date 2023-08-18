@@ -1,4 +1,5 @@
 const OrderModel = require('../models/OrderModel');
+const UserModel = require("../models/UserModel");
 
 const getAllOrders = async (req, res) => {
     try {
@@ -32,12 +33,20 @@ const createOrder = async (req, res) => {
             user,
             items
         });
+
+        const orderingUser = await UserModel.findById(user);
+        if (!orderingUser) {
+            return res.status(404).json({"message": "User not found"});
+        }
         await order.save();
+        orderingUser.orders.push(order._id);
+        await orderingUser.save();
         res.status(201).json(order);
     } catch (error) {
         if (error.name === 'ValidationError') {
             return res.status(400).json({"message": error.message});
         } else {
+            console.log(error);
             res.status(500).json({ error: 'Failed to create order' });
         }
     }
