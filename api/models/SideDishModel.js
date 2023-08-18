@@ -6,7 +6,7 @@ const sideDishSchema = new mongoose.Schema({
     category: { type: String, enum: ['food', 'drink'], required: true},
     imageUrl: { type: String, required: true },
     price: { type: Number, min: 0, required: true },
-    orderCount: { type: Number, min: 0, required: true, default: 0 }
+    orderCount: { type: Number, min: 0, default: 0 }
 }, {
     timestamps: true
 });

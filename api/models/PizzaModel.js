@@ -10,7 +10,7 @@ const pizzaSchema = new mongoose.Schema({
         M: {type: Number, min: 0, required: true},
         L: {type: Number, min: 0, required: true}
     },
-    orderCount: { type: Number, min: 0, required: true, default: 0 }
+    orderCount: { type: Number, min: 0, default: 0 }
 }, {
     timestamps: true
 });
