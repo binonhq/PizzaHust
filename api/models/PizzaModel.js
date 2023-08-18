@@ -4,9 +4,13 @@ const pizzaSchema = new mongoose.Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
     imageUrl: { type: String, required: true },
-    priceS: { type: Number, min: 0, required: true },
-    priceM: { type: Number, min: 0, required: true },
-    priceL: { type: Number, min: 0, required: true }
+    category: { type: String, required: true, immutable: true, default: 'pizza'},
+    price: {
+        S: {type: Number, min: 0, required: true},
+        M: {type: Number, min: 0, required: true},
+        L: {type: Number, min: 0, required: true}
+    },
+    orderCount: { type: Number, min: 0, required: true, default: 0 }
 }, {
     timestamps: true
 });

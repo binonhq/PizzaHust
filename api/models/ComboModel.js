@@ -16,7 +16,8 @@ const comboSchema = new mongoose.Schema({
             quantity: {type: Number, required: true, immutable: true}
         }]
     },
-    price: { type: Number, min: 0, required: true }
+    price: { type: Number, min: 0, required: true },
+    orderCount: { type: Number, min: 0, required: true, default: 0 }
 }, {
     timestamps: true
 });

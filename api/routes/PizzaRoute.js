@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.get('/', PizzaController.getAllPizzas);
 
+router.get('/hot', PizzaController.getTopPizzas);
+
 router.get('/:id', PizzaController.getPizzaById);
 
 router.post('/', AuthController.authenticateAdminToken, PizzaController.createPizza);
