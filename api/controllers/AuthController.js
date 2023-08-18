@@ -47,7 +47,7 @@ const changePassword = async (req, res) => {
 }
 
 const authenticateToken = async (req, res, next) => {
-    const token = req.header('Authorization')?.split(' ')[1];
+    const { token } = req.cookies;
 
     if (!token) {
         return res.status(401).send({ message: "Access denied. Token missing." });
@@ -84,7 +84,7 @@ const nowProfile = async (req, res) => {
     } else res.json(null)
 }
 const authenticateAdminToken = async (req, res, next) => {
-    const token = req.header('Authorization')?.split(' ')[1];
+    const { token } = req.cookies;
 
     if (!token) {
         return res.status(401).send({ message: "Access denied. Token missing." });
