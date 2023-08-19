@@ -6,18 +6,18 @@ const comboSchema = new mongoose.Schema({
     imageUrl: { type: String, required: true },
     comboData: {
         pizzas: [{
-            _id: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Pizza'},
-            size: {type: String, enum: ['S', 'M', 'L'], required: true, immutable: true},
+            _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Pizza'},
+            size: {type: String, enum: ['S', 'M', 'L']},
             toppings: [{type: mongoose.Schema.Types.ObjectId, ref: 'Topping'}],
-            quantity: {type: Number, required: true, immutable: true}
+            quantity: {type: Number, min: 0}
         }],
         sideDishes: [{
-            _id: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'SideDish'},
-            quantity: {type: Number, required: true, immutable: true}
+            _id: {type: mongoose.Schema.Types.ObjectId, ref: 'SideDish'},
+            quantity: {type: Number, min: 0}
         }]
     },
     price: { type: Number, min: 0, required: true },
-    orderCount: { type: Number, min: 0, required: true, default: 0 }
+    orderCount: { type: Number, min: 0, default: 0 }
 }, {
     timestamps: true
 });
