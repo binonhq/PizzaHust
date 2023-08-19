@@ -71,7 +71,7 @@ export default function CartPage() {
         item.product.category !== "pizza" && item.product.category !== "combo"
     )
     .map((item) => ({
-      sideDishes: item.product,
+      sideDish: item.product,
       quantity: item.quantity,
       price: item.price,
     }));
