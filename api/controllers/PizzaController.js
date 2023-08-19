@@ -78,7 +78,7 @@ const getTopPizzas = async (req, res) => {
     try {
         const topPizzas = await PizzaModel.find()
             .sort({ orderCount: -1 }) // Sort in descending order of orderCount
-            .limit(5); // Limit the result to the top 5 pizzas
+            .limit(4); // Limit the result to the top 5 pizzas
 
         res.status(200).json(topPizzas);
     } catch (error) {

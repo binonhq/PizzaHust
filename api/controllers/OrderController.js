@@ -1,4 +1,5 @@
 const OrderModel = require('../models/OrderModel');
+const PizzaModel = require('../models/PizzaModel');
 const UserModel = require("../models/UserModel");
 
 const getAllOrders = async (req, res) => {
@@ -15,20 +16,20 @@ const getOrderById = async (req, res) => {
     try {
         const order = await OrderModel.findById(id).populate({
             path: 'items',
-                populate: [
-                    {
-                        path: 'pizzas.pizza',
-                        model: 'Pizza'
-                    },
-                    {
-                        path: 'combos.combo',
-                        model: 'Combo'
-                    },
-                    {
-                        path: 'sideDishes.sideDish',
-                        model: 'SideDish'
-                    }
-                ]
+            populate: [
+                {
+                    path: 'pizzas.pizza',
+                    model: 'Pizza'
+                },
+                {
+                    path: 'combos.combo',
+                    model: 'Combo'
+                },
+                {
+                    path: 'sideDishes.sideDish',
+                    model: 'SideDish'
+                }
+            ]
         });
         if (!order) {
             return res.status(404).json({ error: 'Order not found' });
@@ -57,10 +58,21 @@ const createOrder = async (req, res) => {
             paymentMethod,
             address,
         });
-
         const orderingUser = await UserModel.findById(user);
         if (!orderingUser) {
-            return res.status(404).json({"message": "User not found"});
+            return res.status(404).json({ "message": "User not found" });
+        }
+        console.log(items);
+        for (const item of items.pizzas) {
+            try {
+                const ordPizza = await PizzaModel.findById(item.pizza);
+                if (ordPizza) {
+                    ordPizza.orderCount += 1;
+                    await ordPizza.save();
+                }
+            } catch (error) {
+                console.error(`Error updating pizza with ID ${item.pizza}:`, error);
+            }
         }
         await order.save();
         orderingUser.orders.push(order._id);
@@ -68,7 +80,7 @@ const createOrder = async (req, res) => {
         res.status(201).json(order);
     } catch (error) {
         if (error.name === 'ValidationError') {
-            return res.status(400).json({"message": error.message});
+            return res.status(400).json({ "message": error.message });
         } else {
             console.log(error);
             res.status(500).json({ error: 'Failed to create order' });

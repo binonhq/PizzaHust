@@ -36,11 +36,19 @@ export default function CartPage() {
         address,
       };
       if (paymentMethod === "online") {
-        const rs = await axios.post("/payment/create-checkout-session", {
-          order,
-        });
-        window.open(rs.data.url);
-        console.log(rs);
+        try {
+          const response = await axios.post("/orders", order);
+          if (response.status === 201) {
+            alert("Place order successful!");
+            setCart([]);
+            const rs = await axios.post("/payment/create-checkout-session", {
+              order,
+            });
+            window.location.href = rs.data.url;
+          }
+        } catch (e) {
+          console.log(e);
+        }
       } else {
         try {
           const response = await axios.post("/orders", order);
