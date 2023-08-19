@@ -67,9 +67,11 @@ export default function ViewOrder() {
             <table className="w-full">
               <thead>
                 <tr>
-                  <th className="text-left px-10">Pizza Name</th>
-                  <th className="text-center px-10">Price</th>
+                  <th className="text-left px-10">Pizza Name</th>            
                   <th className="text-center px-10">Size</th>
+                  <th className="text-center px-10">Topping</th>
+                  <th className="text-center px-10">Crust</th> 
+                  <th className="text-center px-10">Price</th>
                   <th className="text-center px-10">Quantity</th>
                 </tr>
               </thead>
@@ -79,8 +81,10 @@ export default function ViewOrder() {
                     <td className="text-left px-10">
                       {pizza.pizza.name}
                     </td>
-                    <td className="text-center px-10">{pizza.price}đ</td>
                     <td className="text-center px-10">{pizza.size}</td>
+                    <td className="text-center px-10">{pizza.topping}</td>
+                    <td className="text-center px-10">{pizza.crust}</td>
+                    <td className="text-center px-10">{pizza.price}đ</td>
                     <td className="text-center px-10">{pizza.quantity}</td>
                   </tr>
                 ))}
