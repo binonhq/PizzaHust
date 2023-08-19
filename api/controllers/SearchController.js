@@ -3,6 +3,26 @@ const ToppingModel = require('../models/ToppingModel');
 const SideDishModel = require('../models/SideDishModel')
 const ComboModel = require('../models/ComboModel');
 
+const searchAllProduct = async (req, res) => {
+    try {
+        const pizzas = await PizzaModel.find();
+        const toppings = await ToppingModel.find();
+        const sideDishes = await SideDishModel.find();
+        const combos = await ComboModel.find();
+
+        const allProducts = {
+            pizzas,
+            toppings,
+            sideDishes,
+            combos
+        };
+
+        res.status(200).json(allProducts);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to get products' });
+    }
+};
+
 const searchProductById = async (req, res) => {
     const { category, productId } = req.body;
     if (category === 'pizza') {
@@ -52,5 +72,6 @@ const searchProductById = async (req, res) => {
 };
 
 module.exports = {
+    searchAllProduct,
     searchProductById
 };
