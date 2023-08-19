@@ -28,7 +28,7 @@ const getUserByToken = async (req, res) => {
 const getUserById = async (req, res) => {
     const { id } = req.params;
     try {
-        const user = await UserModel.findById(id);
+        const user = await UserModel.findById(id).populate('orders');
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
