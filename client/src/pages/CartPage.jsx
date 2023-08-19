@@ -39,7 +39,6 @@ export default function CartPage() {
         try {
           const response = await axios.post("/orders", order);
           if (response.status === 201) {
-            alert("Place order successful!");
             setCart([]);
             const rs = await axios.post("/payment/create-checkout-session", {
               order,
