@@ -27,15 +27,8 @@ const createPizza = async (req, res) => {
         name,
         description,
         imageUrl,
-        priceS,
-        priceM,
-        priceL
+        price
     } = req.body;
-    const price = {
-        S: priceS,
-        M: priceM,
-        L: priceL
-    }
     try {
         const pizza = new PizzaModel({
             name,
