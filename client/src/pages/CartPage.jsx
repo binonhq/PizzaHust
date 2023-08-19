@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CartContext } from "../CartContext";
 import CartProduct from "../CartProduct";
 import { UserContext } from "../UserContext";
@@ -65,8 +65,6 @@ export default function CartPage() {
       quantity: item.quantity,
       price: item.price,
     }));
-
-  console.log(pizzaItems);
   const sideDishesItems = cart
     .filter(
       (item) =>
