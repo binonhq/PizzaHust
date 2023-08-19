@@ -10,7 +10,7 @@ const orderSchema = new mongoose.Schema({
         pizzas: [{
             pizza: { type: mongoose.Schema.Types.ObjectId, immutable: true, ref: 'Pizza' },
             size: { type: String, immutable: true },
-            toppings: { type: String },
+            topping: { type: String },
             crust: { type: String },
             quantity: { type: Number, immutable: true },
             price: { type: Number }

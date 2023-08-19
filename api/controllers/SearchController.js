@@ -6,16 +6,10 @@ const ComboModel = require('../models/ComboModel');
 const searchAllProduct = async (req, res) => {
     try {
         const pizzas = await PizzaModel.find();
-        const toppings = await ToppingModel.find();
         const sideDishes = await SideDishModel.find();
         const combos = await ComboModel.find();
 
-        const allProducts = {
-            pizzas,
-            toppings,
-            sideDishes,
-            combos
-        };
+        const allProducts = [...pizzas, ...sideDishes, ...combos];
 
         res.status(200).json(allProducts);
     } catch (error) {

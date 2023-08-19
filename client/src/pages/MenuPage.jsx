@@ -9,26 +9,17 @@ export default function MenuPage() {
   let subPage = pathname.split("/")?.[2];
   useEffect(() => {
     axios
-      .get("/pizzas")
+      .get("/search")
       .then((response) => {
-        const pizzaData = response.data;
-        axios
-          .get("/side-dishes")
-          .then((response) => {
-            const sideDishData = response.data;
-            const listItem = [...pizzaData, ...sideDishData];
-            setListItem(listItem);
-            if (subPage) {
-              setListItem((preList) =>
-                preList.filter((item) => item.category === subPage)
-              );
-            }
-          })
-          .catch((error) =>
-            console.error("Error fetching side dish data:", error)
+        const allItem = response.data;
+        setListItem(allItem);
+        if (subPage) {
+          setListItem((preList) =>
+            preList.filter((item) => item.category === subPage)
           );
+        }
       })
-      .catch((error) => console.error("Error fetching pizza data:", error));
+      .catch((error) => console.error("Error fetching data:", error));
   }, [subPage]);
 
   return (

@@ -65,6 +65,8 @@ export default function CartPage() {
       quantity: item.quantity,
       price: item.price,
     }));
+
+  console.log(pizzaItems);
   const sideDishesItems = cart
     .filter(
       (item) =>
