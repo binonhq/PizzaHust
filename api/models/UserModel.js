@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
     phoneNumber: {type: String, required: true},
     address: {type: String, required: true},
     orders: [{type: mongoose.Schema.Types.ObjectId, ref: 'Order'}],
+    status: { type: String, enum: ['active', 'blocked'], default: 'active'},
 }, {
     timestamps: true
 });
