@@ -103,7 +103,7 @@ export default function MenuProduct({ product }) {
               htmlFor="size-select"
               className="block text-sm font-medium my-2 dark:text-white"
             >
-              Select your size
+              Select pizza size
             </label>
             <select
               id="size-select"
@@ -121,7 +121,7 @@ export default function MenuProduct({ product }) {
               htmlFor="size-select"
               className="block text-sm font-medium my-2 dark:text-white"
             >
-              Select your size
+              Select crust size
             </label>
             <select
               id="crust-select"

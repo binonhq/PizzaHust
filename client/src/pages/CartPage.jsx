@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../CartContext";
 import CartProduct from "../CartProduct";
 import { UserContext } from "../UserContext";
@@ -20,6 +20,9 @@ export default function CartPage() {
   async function PlaceOrder() {
     if (!user) {
       alert("You must login to place order!");
+      return;
+    } else if (address === "") {
+      alert("Fill address information!");
       return;
     } else {
       const items = {
@@ -110,7 +113,13 @@ export default function CartPage() {
               <CartProduct item={item} key={item} />
             ))}
           </div>
-          <div className="w-auto mt-3 mb-5 px-5 py-3 mx-10 rounded-xl bg-stone-800 ">
+          <Link
+            to="/menu"
+            className="mx-auto my-1 px-5 py-1 font-semibold text-sm rounded-full text-white  bg-stone-700 flex gap-2 hover:bg-gradient-to-r transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none"
+          >
+            Add more item
+          </Link>
+          <div className="w-auto my-5 mb-5 px-5 py-3 mx-10 rounded-xl bg-stone-800 ">
             <div className="flex justify-between py-2">
               <div className="flex gap-3 w-full">
                 <svg
@@ -180,9 +189,9 @@ export default function CartPage() {
                   className="w-full bg-stone-800 focus:outline-none"
                 >
                   <option value="online" selected>
-                    CASH
+                    Online payment
                   </option>
-                  <option value="cod">COD</option>
+                  <option value="cod">Cash on delivery</option>
                 </select>
               </div>
             </div>
@@ -206,7 +215,7 @@ export default function CartPage() {
               </div>
             </div>
           </div>
-          <div className="flex justify-between mx-5 text-stone-400">
+          <div className="flex justify-between mx-5  text-stone-400">
             <h1 className="">Subtotal</h1>
             <h1>
               {Number(totalPrice)
