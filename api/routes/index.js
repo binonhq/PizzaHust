@@ -7,6 +7,7 @@ const PizzaRoute = require('./PizzaRoute');
 const ToppingRoute = require('./ToppingRoute');
 const SideDishRoute = require('./SideDishRoute');
 const ComboRoute = require('./ComboRoute');
+const SearchRoute = require('./SearchRoute');
 
 const router = express.Router();
 
@@ -18,5 +19,6 @@ router.use('/pizzas', PizzaRoute);
 router.use('/toppings', ToppingRoute);
 router.use('/side-dishes', SideDishRoute);
 router.use('/combos', ComboRoute);
+router.use('/search', SearchRoute);
 
 module.exports = router;
