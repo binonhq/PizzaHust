@@ -13,6 +13,7 @@ const createCheckoutSession = async (req, res) => {
                         currency: 'vnd',
                         product_data: {
                             name: `${order.user.name} Order`,
+                            
                         },
                         unit_amount: Number(order.totalPrice + order.feePrice),
                     },

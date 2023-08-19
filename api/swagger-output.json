@@ -262,11 +262,29 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "phoneNumber": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           },
           "401": {
             "description": "Unauthorized"
@@ -357,6 +375,9 @@
           },
           "401": {
             "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -468,13 +489,7 @@
                 "imageUrl": {
                   "example": "any"
                 },
-                "priceS": {
-                  "example": "any"
-                },
-                "priceM": {
-                  "example": "any"
-                },
-                "priceL": {
+                "price": {
                   "example": "any"
                 }
               }

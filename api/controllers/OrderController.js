@@ -1,4 +1,5 @@
 const OrderModel = require('../models/OrderModel');
+const UserModel = require("../models/UserModel");
 
 const getAllOrders = async (req, res) => {
     try {
@@ -12,7 +13,23 @@ const getAllOrders = async (req, res) => {
 const getOrderById = async (req, res) => {
     const { id } = req.params;
     try {
-        const order = await OrderModel.findById(id);
+        const order = await OrderModel.findById(id).populate({
+            path: 'items',
+                populate: [
+                    {
+                        path: 'pizzas.pizza',
+                        model: 'Pizza'
+                    },
+                    {
+                        path: 'combos.combo',
+                        model: 'Combo'
+                    },
+                    {
+                        path: 'sideDishes.sideDish',
+                        model: 'SideDish'
+                    }
+                ]
+        });
         if (!order) {
             return res.status(404).json({ error: 'Order not found' });
         }
@@ -40,12 +57,20 @@ const createOrder = async (req, res) => {
             paymentMethod,
             address,
         });
+
+        const orderingUser = await UserModel.findById(user);
+        if (!orderingUser) {
+            return res.status(404).json({"message": "User not found"});
+        }
         await order.save();
+        orderingUser.orders.push(order._id);
+        await orderingUser.save();
         res.status(201).json(order);
     } catch (error) {
         if (error.name === 'ValidationError') {
-            return res.status(400).json({ "message": error.message });
+            return res.status(400).json({"message": error.message});
         } else {
+            console.log(error);
             res.status(500).json({ error: 'Failed to create order' });
         }
     }

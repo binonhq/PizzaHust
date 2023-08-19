@@ -44,6 +44,27 @@ export default function ProfilePage() {
   };
 
   const handleSaveEdit = async () => {
+    // Check if any field is empty
+    if (
+      !editedData.name ||
+      !editedData.email ||
+      !editedData.phoneNumber ||
+      !editedData.address
+    ) {
+      return alert('All fields are required');
+    }
+
+    // Check email format
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+    if (!emailRegex.test(editedData.email)) {
+      return alert('Invalid email format');
+    }
+
+    // Check if the phone number has 10 digits
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(editedData.phoneNumber)) {
+      return alert('Phone number must have 10 digits');
+    }
     try {
       await axios.put(`users/${user._id}`, editedData);
       setUser({ ...user, ...editedData });

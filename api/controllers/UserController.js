@@ -28,7 +28,23 @@ const getUserByToken = async (req, res) => {
 const getUserById = async (req, res) => {
     const { id } = req.params;
     try {
-        const user = await UserModel.findById(id).populate('orders');
+        const user = await UserModel.findById(id).populate({
+            path: 'orders',
+                populate: [
+                    {
+                        path: 'items.pizzas.pizza',
+                        model: 'Pizza'
+                    },
+                    {
+                        path: 'items.combos.combo',
+                        model: 'Combo'
+                    },
+                    {
+                        path: 'items.sideDishes.sideDish',
+                        model: 'SideDish'
+                    }
+                ]
+        });
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
@@ -47,6 +63,19 @@ const createUser = async (req, res) => {
         phoneNumber,
         address
     } = req.body;
+
+    // Check if the phone number has 10 digits
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(phoneNumber)) {
+        return res.status(400).json({ error: 'Phone number must have 10 digits' });
+    }
+
+    // Check email format
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ error: 'Invalid email format' });
+    }
+
     try {
         const user = new UserModel({
             username,
@@ -70,6 +99,23 @@ const createUser = async (req, res) => {
 const updateUserById = async (req, res) => {
     const { id } = req.params;
     const updateData = req.body;
+
+    // Check if the phone number has 10 digits
+    if (updateData.phoneNumber) {
+        const phoneRegex = /^[0-9]{10}$/;
+        if (!phoneRegex.test(updateData.phoneNumber)) {
+            return res.status(400).json({ error: 'Phone number must have 10 digits' });
+        }
+    }
+
+    // Check email format
+    if (updateData.email) {
+        const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+        if (!emailRegex.test(updateData.email)) {
+            return res.status(400).json({ error: 'Invalid email format' });
+        }
+    }
+
     try {
         const user = await UserModel.findByIdAndUpdate(id, updateData, { new: true });
         if (!user) {
