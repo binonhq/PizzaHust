@@ -27,8 +27,13 @@ export default function CartProduct({ item }) {
           </div>
           <div className="mt-0">
             <div className="flex items-center">
-              <span
-                className="cursor-pointer rounded-full bg-gray-100 text-black py-1 px-3.5 duration-100 hover:bg-stone-700 hover:text-white"
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="white"
+                className="w-10 h-10 rounded-full p-3 cursor-pointer bg-stone-700  duration-100 hover:bg-stone-800"
                 onClick={() => {
                   if (quantity !== 1) {
                     let newQuantity = quantity - 1;
@@ -43,14 +48,23 @@ export default function CartProduct({ item }) {
                   }
                 }}
               >
-                {" "}
-                -{" "}
-              </span>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19.5 12h-15"
+                />
+              </svg>
+
               <p className="w-10 px-auto text-white text-center text-2xl">
                 {item.quantity}
               </p>
-              <span
-                className="cursor-pointer rounded-full text-black bg-gray-100 py-1 px-3 duration-100 hover:bg-stone-700 hover:text-white"
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-10 h-10 rounded-full p-3 cursor-pointer bg-stone-700  duration-100 hover:bg-stone-800"
                 onClick={() => {
                   let newQuantity = quantity + 1;
                   setQuantity(newQuantity);
@@ -63,9 +77,12 @@ export default function CartProduct({ item }) {
                   );
                 }}
               >
-                {" "}
-                +{" "}
-              </span>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 4.5v15m7.5-7.5h-15"
+                />
+              </svg>
             </div>
           </div>
         </div>
@@ -74,7 +91,7 @@ export default function CartProduct({ item }) {
             onClick={(ev) => {
               removeFromCart(ev);
             }}
-            className="hover:underline cursor-pointer"
+            className="my-1 px-5 py-1 font-semibold text-sm rounded-full text-white  bg-stone-700 flex gap-2 hover:bg-gradient-to-r transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none"
           >
             Remove
           </button>

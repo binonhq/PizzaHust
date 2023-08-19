@@ -62,7 +62,6 @@ const createOrder = async (req, res) => {
         if (!orderingUser) {
             return res.status(404).json({ "message": "User not found" });
         }
-        console.log(items);
         for (const item of items.pizzas) {
             try {
                 const ordPizza = await PizzaModel.findById(item.pizza);

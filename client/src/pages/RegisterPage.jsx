@@ -38,7 +38,13 @@ export default function RegisterPage() {
   }
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="mb-auto lg:w-1/3 mx-auto mt-auto rounded-3xl bg-stone-900 p-10 ">
+      <Link
+        to="/"
+        className="font-extrabold text-transparent text-4xl bg-clip-text bg-gradient-to-r from-orange-400 to-orange-500 mx-auto my-auto"
+      >
+        pizzaHust
+      </Link>
+      <div className="mb-auto lg:w-1/3 mx-auto mt-auto rounded-3xl bg-stone-900 p-10">
         <h1 className="uppercase font-semibold text-orange-400 pb-2">
           Start for free
         </h1>
@@ -112,7 +118,7 @@ export default function RegisterPage() {
           </div>
           <button
             onClick={registerUser}
-            className="px-8 py-2 mt-10 block mx-auto text-lg font-semibold rounded-full text-white bg-gradient-to-r from-orange-400 to-orange-500"
+            className="px-8 py-1.5 mt-5 block mx-auto text-lg font-semibold rounded-full text-white bg-gradient-to-r from-orange-400 to-orange-500"
           >
             Create account
           </button>

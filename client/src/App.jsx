@@ -11,7 +11,6 @@ import HistoryPage from "./pages/HistoryPage.jsx";
 import MenuPage from "./pages/MenuPage.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
 import CartPage from "./pages/CartPage.jsx";
-import PaymentPage from "./pages/PaymentPage.jsx";
 import { CartContextProvider } from "./CartContext.jsx";
 import SuccessPayment from "./pages/SuccessPayment.jsx";
 import ViewOrder from "./pages/ViewOrder.jsx";
@@ -30,7 +29,6 @@ function App() {
             <Route path="/cart" element={<CartPage />} />
             <Route path="/account/profile" element={<ProfilePage />} />
             <Route path="/account/history" element={<HistoryPage />} />
-            <Route path="/payment" element={<PaymentPage />} />
             <Route path="/payment/success" element={<SuccessPayment />} />
             <Route path="/order/:orderId" element={<ViewOrder />} />
           </Route>
