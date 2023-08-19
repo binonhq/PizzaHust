@@ -13,7 +13,7 @@ const createCheckoutSession = async (req, res) => {
                         currency: 'vnd',
                         product_data: {
                             name: `${order.user.name} Order`,
-                            
+
                         },
                         unit_amount: Number(order.totalPrice + order.feePrice),
                     },
@@ -22,7 +22,7 @@ const createCheckoutSession = async (req, res) => {
             ],
             mode: 'payment',
             success_url: 'http://localhost:5173/payment/success',
-            cancel_url: 'http://localhost:5173/cart',
+            cancel_url: 'http://localhost:5173/',
         });
         res.status(200).json(session);
     } catch (error) {

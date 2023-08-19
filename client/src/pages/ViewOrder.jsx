@@ -11,7 +11,6 @@ export default function ViewOrder() {
     axios
       .get(`/orders/${orderId}`)
       .then((response) => {
-        console.log(response.data);
         setOrder(response.data);
       })
       .catch((error) => {
@@ -31,7 +30,9 @@ export default function ViewOrder() {
     return (
       <div className="mx-auto pt-5">
         <AccountNav />
-        <div className="text-3xl font-semibold mb-5 text-center">Order Detail</div>
+        <div className="text-3xl font-semibold mb-5 text-center">
+          Order Detail
+        </div>
 
         {/* Combo section */}
         {combos.length > 0 && (
@@ -48,9 +49,7 @@ export default function ViewOrder() {
               <tbody>
                 {combos.map((combo) => (
                   <tr key={combo._id}>
-                    <td className="text-left px-10">
-                      {combo.combo.name}
-                    </td>
+                    <td className="text-left px-10">{combo.combo.name}</td>
                     <td className="text-center px-10">{combo.price}đ</td>
                     <td className="text-center px-10">{combo.quantity}</td>
                   </tr>
@@ -76,9 +75,7 @@ export default function ViewOrder() {
               <tbody>
                 {pizzas.map((pizza) => (
                   <tr key={pizza._id}>
-                    <td className="text-left px-10">
-                      {pizza.pizza.name}
-                    </td>
+                    <td className="text-left px-10">{pizza.pizza.name}</td>
                     <td className="text-center px-10">{pizza.price}đ</td>
                     <td className="text-center px-10">{pizza.size}</td>
                     <td className="text-center px-10">{pizza.quantity}</td>
