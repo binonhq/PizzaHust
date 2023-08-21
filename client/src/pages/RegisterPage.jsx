@@ -58,7 +58,7 @@ export default function RegisterPage() {
             Log in
           </Link>
         </h1>
-        <form className="mt-10" onSubmit={registerUser}>
+        <form className="mt-5" onSubmit={registerUser}>
           <div className="pt-2 pb-3 px-5 rounded-2xl bg-stone-800  mb-4">
             <h1 className="text-stone-500 text-sm">Your name</h1>
             <input

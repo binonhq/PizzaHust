@@ -55,7 +55,7 @@ export default function LoginPage() {
             Register
           </Link>
         </h1>
-        <form className="mt-10" onSubmit={handleLoginSubmit}>
+        <form className="mt-5" onSubmit={handleLoginSubmit}>
           <div className="pt-2 pb-3 px-5 rounded-2xl bg-stone-800 mb-4">
             <h1 className="text-stone-500 text-sm">Username</h1>
             <input
@@ -75,6 +75,9 @@ export default function LoginPage() {
               type="password"
               placeholder="•••••••"
             />
+          </div>
+          <div className="font-semibold text-gray-500 pt-4 italic hover:underline cursor-pointer text-end">
+            Forgot password?
           </div>
           <button
             type="submit"
