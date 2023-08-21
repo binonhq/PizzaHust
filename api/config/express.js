@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors({
    credentials: true,
-   origin: 'http://localhost:5173',
+   origin: ['http://localhost:5173', "http://localhost:5174"],
 }));
 app.use('/', routes);
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

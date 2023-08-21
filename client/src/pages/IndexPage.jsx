@@ -56,10 +56,23 @@ export default function IndexPage() {
           MOST POPULAR PIZZA
         </h1>
       </div>
-      <div className="mt-4 grid grid-cols-4 gap-4 pt-8 mx-60">
-        {listItem.length &&
-          listItem.map((item) => <MenuProduct product={item} key={item._id} />)}
+      <div className="mx-60">
+        <div className="mt-4 grid grid-cols-4 gap-4 pt-8 ">
+          {listItem.length &&
+            listItem.map((item) => (
+              <MenuProduct product={item} key={item._id} />
+            ))}
+        </div>
+        <div className="flex justify-center">
+          <Link
+            to="/menu"
+            className="my-1 mt-5 px-5 py-1 font-semibold text-sm rounded-full text-white  bg-stone-700 flex gap-2 hover:bg-gradient-to-r transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none"
+          >
+            See all menu
+          </Link>
+        </div>
       </div>
+
       <div className="flex justify-between ml-60 mt-20 -mb-16" id="about-us">
         <div className="w-1/2">
           <h1 className="mt-32 lg:text-7xl font-extrabold">About us</h1>
