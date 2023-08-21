@@ -23,7 +23,17 @@ const getOrderById = async (req, res) => {
                 },
                 {
                     path: 'combos.combo',
-                    model: 'Combo'
+                    model: 'Combo',
+                    populate: [
+                        {
+                        path: 'comboData.pizzas._id',
+                        model: 'Pizza'
+                        },
+                        {
+                            path: 'comboData.sideDishes._id',
+                            model: 'SideDish'
+                        },
+                    ]
                 },
                 {
                     path: 'sideDishes.sideDish',

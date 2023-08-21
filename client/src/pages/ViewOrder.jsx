@@ -12,12 +12,23 @@ export default function ViewOrder() {
       .get(`/orders/${orderId}`)
       .then((response) => {
         setOrder(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error("Failed to fetch order:", error);
       });
   }, [orderId]);
-
+  function getPizzaNameById(pizzaId) {
+    // Iterate through the combos to find the pizza
+    for (const combo of combos) {
+      for (const pizza of combo.combo.comboData.pizzas) {
+        if (pizza._id === pizzaId) {
+          return pizza.name;
+        }
+      }
+    }
+    return "Pizza Not Found"; // Return a default value if pizza is not found
+  }
   if (!order) {
     return "Loading...";
   }
@@ -44,6 +55,8 @@ export default function ViewOrder() {
                   <th className="text-left px-10">Combo Name</th>
                   <th className="text-center px-10">Price</th>
                   <th className="text-center px-10">Quantity</th>
+                  <th className="text-center px-10">Pizza Details</th>
+                  <th className="text-center px-10">Side Dish Details</th>
                 </tr>
               </thead>
               <tbody>
@@ -52,6 +65,44 @@ export default function ViewOrder() {
                     <td className="text-left px-10">{combo.combo.name}</td>
                     <td className="text-center px-10">{combo.price}đ</td>
                     <td className="text-center px-10">{combo.quantity}</td>
+                    <td className="text-center px-10">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Size</th>
+                            <th>Quantity</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {combo.combo.comboData.pizzas.map((pizza, index) => (
+                            <tr key={index}>
+                              <td>{pizza._id.name}</td>
+                              <td>{pizza.size}</td>
+                              <td>{pizza.quantity}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </td>
+                    <td className="text-center px-10">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {combo.combo.comboData.sideDishes.map((sideDish, index) => (
+                            <tr key={index}>
+                              <td>{sideDish._id.name}</td>
+                              <td>{sideDish.quantity}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </td>
                   </tr>
                 ))}
               </tbody>
