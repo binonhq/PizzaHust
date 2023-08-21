@@ -4,6 +4,7 @@ import { CartContext } from "../CartContext";
 import CartProduct from "../CartProduct";
 import { UserContext } from "../UserContext";
 import axios from "axios";
+
 export default function CartPage() {
   const navigate = useNavigate();
   const { cart, setCart } = useContext(CartContext);
@@ -38,16 +39,15 @@ export default function CartPage() {
         paymentMethod,
         address,
       };
+      
       if (paymentMethod === "online") {
         try {
-          const response = await axios.post("/orders", order);
-          if (response.status === 201) {
-            setCart([]);
-            const rs = await axios.post("/payment/create-checkout-session", {
-              order,
-            });
-            window.location.href = rs.data.url;
-          }
+          console.log(order);
+          const rs = await axios.post("/payment/create-checkout-session", {
+            order,
+          });
+          localStorage.setItem('orderData', JSON.stringify(order));
+          window.location.href = rs.data.url;
         } catch (e) {
           console.log(e);
         }
