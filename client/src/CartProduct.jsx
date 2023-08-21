@@ -13,9 +13,11 @@ export default function CartProduct({ item }) {
       <div className="ml-5 w-full col-span-5">
         <div className="flex justify-between gap-2">
           <div>
-            <h2 className="text-3xl font-bold">{item.product.name}</h2>
-            <p className="mt-1 text-sm text-stone-400">
-              {item.product.description}
+            <h2 className="text-3xl font-bold capitalize">
+              {item.product.name}
+            </h2>
+            <p className="mt-1 text-sm text-stone-400 capitalize">
+              Description: {item.product.description}
             </p>
             {item.product.category === "pizza" && (
               <div className="flex gap-5 text-stone-400">

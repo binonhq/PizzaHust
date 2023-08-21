@@ -7,7 +7,7 @@ const searchAllProduct = async (req, res) => {
     try {
         const pizzas = await PizzaModel.find();
         const sideDishes = await SideDishModel.find();
-        const combos = await ComboModel.find();
+        const combos = await ComboModel.find().populate("comboData.pizzas._id").populate("comboData.sideDishes._id");
 
         const allProducts = [...pizzas, ...sideDishes, ...combos];
 

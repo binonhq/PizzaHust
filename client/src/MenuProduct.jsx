@@ -8,7 +8,6 @@ export default function MenuProduct({ product }) {
   const [crust, setCrust] = useState("Thin");
   const [price, setPrice] = useState("");
   const [listTopping, setListTopping] = useState([]);
-
   useEffect(() => {
     if (product.category === "pizza") {
       let priceSize = 0;
@@ -89,10 +88,10 @@ export default function MenuProduct({ product }) {
     <div className="bg-stone-800 bg-opacity-20 pt-8 px-5 pb-5 rounded-3xl flex flex-col justify-between">
       <div>
         <img className="w-1/2 h-40 mx-auto" src={product.imageUrl} alt="" />
-        <h1 className="text-center font-semibold text-3xl pb-3 pt-4">
+        <h1 className="text-center font-semibold text-3xl pb-3 pt-4 capitalize">
           {product.name}
         </h1>
-        <h1 className="text-sm text-center text-gray-400">
+        <h1 className="text-sm text-center text-gray-400 capitalize">
           {product.description}
         </h1>
       </div>
@@ -157,19 +156,37 @@ export default function MenuProduct({ product }) {
             </select>
           </div>
         )}
-        <button
-          onClick={addToCart}
-          className="w-full flex bg-gradient-to-r from-orange-400 to-orange-500 hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none font-semibold justify-between px-10 py-2 rounded-full mt-6"
-        >
-          <h1 className="">Add to cart</h1>
-          <h1>
-            {Number(price)
-              .toFixed(0)
-              .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
-            <span className="text-stone-200 px-1">đ</span>
-          </h1>
-        </button>
+        {product.category === "combo" && (
+          <div className="">
+            <ul>
+              {product.comboData.pizzas.length &&
+                product.comboData.pizzas.map((item) => (
+                  <li key={product.comboData.pizzas._id}>
+                    - {item.quantity} {item._id.name}
+                  </li>
+                ))}
+              {product.comboData.sideDishes.length &&
+                product.comboData.sideDishes.map((item) => (
+                  <li key={product.comboData.sideDishes._id}>
+                    - {item.quantity} {item._id.name}
+                  </li>
+                ))}
+            </ul>
+          </div>
+        )}
       </div>
+      <button
+        onClick={addToCart}
+        className="w-full flex bg-gradient-to-r from-orange-400 to-orange-500 hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600 transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none font-semibold justify-between px-10 py-2 rounded-full mt-6"
+      >
+        <h1 className="">Add to cart</h1>
+        <h1>
+          {Number(price)
+            .toFixed(0)
+            .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
+          <span className="text-stone-200 px-1">đ</span>
+        </h1>
+      </button>
     </div>
   );
 }

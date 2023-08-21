@@ -34,13 +34,14 @@ const createTopping = async (req, res) => {
             name,
             description,
             imageUrl,
-            price
+            price,
+            category: "topping"
         });
         await topping.save();
         res.status(201).json(topping);
     } catch (error) {
         if (error.name === 'ValidationError') {
-            return res.status(400).json({"message": error.message});
+            return res.status(400).json({ "message": error.message });
         } else {
             res.status(500).json({ error: 'Failed to create topping' });
         }

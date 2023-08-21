@@ -5,19 +5,18 @@ import axios from "axios";
 
 export default function SuccessPayment() {
   const { cart, setCart } = useContext(CartContext);
-  const orderData = JSON.parse(localStorage.getItem('orderData'));
-  const hasRun = useRef(false); 
+  const orderData = JSON.parse(localStorage.getItem("orderData"));
+  const hasRun = useRef(false);
 
   const sendOrder = async () => {
-    if (orderData && !hasRun.current) { 
+    if (orderData && !hasRun.current) {
       try {
-        hasRun.current = true; 
-        console.log(orderData);
+        hasRun.current = true;
         const response = await axios.post("/orders", orderData);
         if (response.status === 201) {
           setCart([]);
         }
-        localStorage.removeItem('orderData');
+        localStorage.removeItem("orderData");
       } catch (error) {
         console.error("Error creating order:", error);
       }

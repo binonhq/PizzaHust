@@ -2,10 +2,10 @@ const ComboModel = require('../models/ComboModel');
 
 const getAllCombos = async (req, res) => {
     try {
-        const combos = await ComboModel.find();
+        const combos = await ComboModel.find().populate("comboData.pizzas._id").populate("comboData.sideDishes._id");
         res.status(200).json(combos);
     } catch (error) {
-        res.status(500).json({ error: 'Failed to get all combos' });
+        res.status(500).json(error);
     }
 };
 
