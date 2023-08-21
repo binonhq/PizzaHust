@@ -120,10 +120,25 @@ export default function ViewOrder() {
         )}
 
         {/* Total Price */}
-        <div className="text-xl font-semibold mb-2 text-center pt-10">
-          Subtotal: {order.totalPrice} đ <br />
-          Delivery fee: {order.feePrice} đ <br />
-          Total Price: {order.totalPrice + order.feePrice} đ
+        <div className="pt-10">
+          <table className="mx-auto mb-10">
+            <tbody>
+              <tr>
+                <td className="text-left text-xl pr-4">Subtotal:</td>
+                <td className="font-semibold text-xl text-right">{order.totalPrice} đ</td>
+              </tr>
+              <tr>
+                <td className="text-left text-xl pr-4">Delivery fee:</td>
+                <td className="font-semibold text-xl text-right">{order.feePrice} đ</td>
+              </tr>
+              <tr>
+                <td className="text-left text-xl pr-4">Total Price:</td>
+                <td className="font-semibold text-xl text-right">
+                  {order.totalPrice + order.feePrice} đ
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     );
