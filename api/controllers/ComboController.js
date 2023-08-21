@@ -37,6 +37,7 @@ const createCombo = async (req, res) => {
             imageUrl,
             comboData,
             price,
+            category: "combo",
         });
         await combo.save();
         res.status(201).json(combo);
